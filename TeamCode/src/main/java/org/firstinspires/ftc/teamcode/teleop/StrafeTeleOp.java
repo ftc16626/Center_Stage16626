@@ -9,8 +9,28 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp
+@TeleOp (name = "armSample") //ARI COMMENT: this name is going to show up on your robot controller
 public class StrafeTeleOp extends LinearOpMode {
+
+
+    //ARI COMMENT: This space here is where you should define all your local variables
+    //For example, if I have a power variable I want to reference in the code multiple times, I would do it here
+    /* EXAMPLE:
+
+    int powerExample = 3;
+
+     */
+
+
+    //ALSO ARI COMMENT: you can define your local dcmotors and stuff here too. This won't break your code without it, but it makes it easier to reference
+    //so for example, I could declare that there is a DcMotor called leftMotor here. However, this won't reference anything from the robot Controller.
+
+    /*
+    EXAMPLE:
+    public DcMotor leftWheel;
+     */
+
+
     @Override
     public void runOpMode() throws InterruptedException {
         // Declare our motors
@@ -20,15 +40,27 @@ public class StrafeTeleOp extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("RFMotor");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("RBMotor");
 
-        // ARI COMMENT: You should define your motors for your arm here
+        // ARI COMMENT: You should define your motors for your arm here. I defined the LAMotor and RAMotor
+        DcMotor LAMotor = hardwareMap.dcMotor.get("LAMotor");
+        DcMotor RAMotor = hardwareMap.dcMotor.get("RAMotor");
 
-        // Reverse the right side motors. This may be wrong for your setup.
-        // If your robot moves backwards when commanded to go forwards,
-        // reverse the left side instead.
-        // See the note about this earlier on this page.
+
+
+        /*ARI COMMENT: These lines of code reverse the motors. If you run the code and the arm motors go backwards when they should
+        be forward, then reverse them accordingly.
+         */
+        //These lines reverse the front and back motors
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        /*ARI COMMENT: You're also going to want to do these reset lines for the arm encoders. This ensures that the encoders start
+        at 0 every time you run the program
+        */
+        LAMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RAMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        //ARI COMMENT: This is all internal measuring unit stuff. If you want me to explain it lmk
         // Retrieve the IMU from the hardware map
         IMU imu = hardwareMap.get(IMU.class, "imu");
         // Adjust the orientation parameters to match your robot
@@ -38,6 +70,9 @@ public class StrafeTeleOp extends LinearOpMode {
         // Without this, the REV Hub's orientation is assumed to be logo up / USB forward
         imu.initialize(parameters);
 
+        //ARI COMMENT: This is also where you would set the starting positions for your arms and servos, etc.
+
+        //ARI COMMENT: this is where you press the start button on the robot controller. Everything after this is what runs when you're in the game
         waitForStart();
         if (isStopRequested()) return;
         while (opModeIsActive()) {
@@ -74,7 +109,7 @@ public class StrafeTeleOp extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
         }
-        while (opModeIsActive()) {
+        while (opModeIsActive()) {// ARI COMMENT: I'm not going to remove this error because you should look at it and weep. There should only be one while opmodeisactive method
             // Assume that the motor is connected to the first port of the expansion hub
             DcMotorEx motor = hardwareMap.get(DcMotorEx.class, "LAMotor");
 
