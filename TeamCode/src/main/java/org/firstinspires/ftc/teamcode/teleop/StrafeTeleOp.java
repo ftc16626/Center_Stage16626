@@ -20,7 +20,7 @@ public class StrafeTeleOp extends LinearOpMode {
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("RFMotor");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("RBMotor");
 
-        // ARI COMMENT: You should define
+        // ARI COMMENT: You should define your motors for your arm here
 
         // Reverse the right side motors. This may be wrong for your setup.
         // If your robot moves backwards when commanded to go forwards,
