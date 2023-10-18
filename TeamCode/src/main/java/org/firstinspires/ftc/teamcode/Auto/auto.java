@@ -17,7 +17,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class sampleauto {
 }
 
-/*
+/* n n 
  * This OpMode illustrates the concept of driving a path based on encoder counts.
  * The code is structured as a LinearOpMode
  *
