@@ -14,7 +14,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 
-public class auto {
+public class sampleauto {
 }
 
 /*
@@ -76,31 +76,28 @@ public class auto {
     static final double     DRIVE_SPEED             = 0.6;
     static final double     TURN_SPEED              = 0.5;
 
+
+    // Initialize the drive system variables.
     @Override
-    public void runOpMode() {
+    publ Bic void runOpMode(){
+        RFMotor = hardwareMap.dcMotor.get("RFMotor");
+        RBMotor = hardwareMap.dcMotor.get("RBMotor");
+        LFMotor = hardwareMap.dcMotor.get("LFMotor");
+        LBMotor = hardwareMap.dcMotor.get("LBMotor");
+        Inta = hardwareMap.crservo.get("Inta");
+        Flip = hardwareMap.servo.get("Flip");
+        ClawP = hardwareMap.crservo.get("ClawP");
+        ClawR = hardwareMap.servo.get("ClawR");
+        Inta.resetDeviceConfigurationForOpMode();
+        ClawP.resetDeviceConfigurationForOpMode();
+        final double FLIPHOME = 0.1;
+        final double CLAWHOME = 0;
+        Flip.setPosition(FLIPHOME);
+        ClawR.setPosition(CLAWHOME);
+        double clawRotation = CLAWHOME;
 
-        // Initialize the drive system variables.
-        @Override
-        public void runOpMode(){
-            RFMotor = hardwareMap.dcMotor.get("RFMotor");
-            RBMotor = hardwareMap.dcMotor.get("RBMotor");
-            LFMotor = hardwareMap.dcMotor.get("LFMotor");
-            LBMotor = hardwareMap.dcMotor.get("LBMotor");
-            Inta = hardwareMap.crservo.get("Inta");
-            Flip = hardwareMap.servo.get("Flip");
-            ClawP = hardwareMap.crservo.get("ClawP");
-            ClawR = hardwareMap.servo.get("ClawR");
-            Inta.resetDeviceConfigurationForOpMode();
-            ClawP.resetDeviceConfigurationForOpMode();
-            final double FLIPHOME = 0.1;
-            final double CLAWHOME = 0;
-            Flip.setPosition(FLIPHOME);
-            ClawR.setPosition(CLAWHOME);
-            double clawRotation = CLAWHOME;
-
-
-            telemetry.addData("Status","Running");
-            telemetry.update();
+        telemetry.addData("Status","Running");
+        telemetry.update();
 
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // When run, this OpMode should start both motors driving forward. So adjust these two lines based on your first test drive.
