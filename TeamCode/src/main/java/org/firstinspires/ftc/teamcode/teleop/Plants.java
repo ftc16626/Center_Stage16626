@@ -110,7 +110,7 @@ public class Plants extends LinearOpMode {
             // Map the joystick value to the servo position range (adjust min and max as needed)
             double servoPosition = yValue;
             // Set the servo position
-            ClawR.setPosition(servoPosition);
+            
 
 
             // This button choice was made so that it is hard to hit on accident,
