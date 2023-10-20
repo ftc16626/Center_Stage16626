@@ -1,9 +1,8 @@
-package TeamCode.src.main.java.org.firstinspires.ftc.teamcode.Auto;
+package org.firstinspires.ftc.teamcode.Auto;
 
 // public class Auto2 {
 
 
-package org.firstinspires.ftc.teamcode.Auto;
 
         import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
         import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -14,7 +13,7 @@ package org.firstinspires.ftc.teamcode.Auto;
 
 @Autonomous
 
-public class auto extends LinearOpMode {
+public class Auto2 extends LinearOpMode {
     //drivetrain motors
     DcMotor leftFront = null;
     DcMotor leftBack = null;
@@ -51,6 +50,8 @@ public class auto extends LinearOpMode {
         rightBack.setPower(-MotorPower);
         rightFront.setPower(MotorPower);
         sleep(850);
+    }
+}
         /*leftBack.setPower(-MotorPower);
         leftFront.setPower(-MotorPower);
         rightFront.setPower(-MotorPower);
@@ -60,7 +61,8 @@ public class auto extends LinearOpMode {
         leftFront.setPower(0);
         rightBack.setPower(0);
         rightFront.setPower(0);
-        //armup.setPower(1);
-        sleep(1000);
+
     }
 }
+
+         */
