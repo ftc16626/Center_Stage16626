@@ -83,6 +83,12 @@ public class Plants extends LinearOpMode {
             double RAMotorPower = rightStickY;
             RAMotor.setPower(RAMotorPower);
 
+            // Claw rotation controlled by the left joystick
+            double yValue = -gamepad2.left_stick_y; // Negate the value if the servo moves in the opposite direction
+            // Map the joystick value to the servo position range (adjust min and max as needed)
+            double servoPosition = yValue;
+            // Set the servo position //DEREK LOOK AT THIS -Ari
+
 
             //Controls for the intake
             //the spin spin thing
@@ -102,14 +108,10 @@ public class Plants extends LinearOpMode {
             //Rotation of claw
             //brings claw back to home
             if (gamepad2.y) {
-                ClawR.setPosition(0); // Make sure you are using 'clawRotation' for controlling the claw's position
+                ClawR.setPosition(0);// Make sure you are using 'clawRotation' for controlling the claw's position
             }
 
-            // Claw rotation controlled by the left joystick
-            double yValue = -gamepad2.left_stick_y; // Negate the value if the servo moves in the opposite direction
-            // Map the joystick value to the servo position range (adjust min and max as needed)
-            double servoPosition = yValue;
-            // Set the servo position
+
             
 
 
@@ -141,6 +143,8 @@ public class Plants extends LinearOpMode {
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
+            ClawR.setPosition(servoPosition); //DEREK LOOK AT THIS -ARI
+
         }
     }
 }
