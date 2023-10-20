@@ -14,19 +14,19 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp
 public class Plants extends LinearOpMode {
     //naming different motors
-    private DcMotor RFMotor;
-    private DcMotor RBMotor;
-    private DcMotor LFMotor;
-    private DcMotor LBMotor;
-    private DcMotor RAMotor;
-    private DcMotor LAMotor;
-    private DcMotor IntaMotor; //Intake motor
-    private Servo ClawR; //Rotates Claw
-    private CRServo ClawP; //Closes (pinches) Claw
-    private Servo Flip; //Servo that flips the intake
-    private boolean isRunning = false;
-    private ElapsedTime runtime = new ElapsedTime();
-    private double power = 0.0; // Initial power setting
+    public DcMotor RFMotor;
+    public DcMotor RBMotor;
+    public DcMotor LFMotor;
+    public DcMotor LBMotor;
+    public DcMotor RAMotor;
+    public DcMotor LAMotor;
+    public DcMotor IntaMotor; //Intake motor
+    public Servo ClawR; //Rotates Claw
+    public CRServo ClawP; //Closes (pinches) Claw
+    public Servo Flip; //Servo that flips the intake
+    public boolean isRunning = false;
+    public ElapsedTime runtime = new ElapsedTime();
+    public double power = 0.0; // Initial power setting
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -76,13 +76,16 @@ public class Plants extends LinearOpMode {
 
         waitForStart();
         if (isStopRequested()) return;
-
         while (opModeIsActive()) {
 
+            double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            double x = gamepad1.left_stick_x * 1.1; //Correct imperf strafing
+            double rx = gamepad1.right_stick_x;
 
             double rightStickY = gamepad2.right_stick_y;
             double RAMotorPower = rightStickY;
             RAMotor.setPower(RAMotorPower);
+
 
             //Controls for the intake
             //the spin spin thing
@@ -111,43 +114,37 @@ public class Plants extends LinearOpMode {
             double servoPosition = (yValue + 1.0) / 2.0; // Convert range from -1 to 1 to 0 to 1
             // Set the servo position
             ClawR.setPosition(servoPosition);
+
+
+
+            // This button choice was made so that it is hard to hit on accident,
+            // it can be freely changed based on preference.
+            // The equivalent button is start on Xbox-style controllers.
+            if (gamepad1.options) {
+                imu.resetYaw();
+            }
+
+            double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
+
+            // Rotate the movement direction counter to the bot's rotation
+            double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
+            double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
+
+            rotX = rotX * 1.1;  // Counteract imperfect strafing
+
+            // Denominator is the largest motor power (absolute value) or 1
+            // This ensures all the powers maintain the same ratio,
+            // but only if at least one is out of the range [-1, 1]
+            double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
+            double frontLeftPower = (rotY + rotX + rx) / denominator;
+            double backLeftPower = (rotY - rotX + rx) / denominator;
+            double frontRightPower = (rotY - rotX - rx) / denominator;
+            double backRightPower = (rotY + rotX - rx) / denominator;
+
+            frontLeftMotor.setPower(frontLeftPower);
+            backLeftMotor.setPower(backLeftPower);
+            frontRightMotor.setPower(frontRightPower);
+            backRightMotor.setPower(backRightPower);
+            }
         }
-
-
-
-
-
-        double y = gamepad1.left_stick_y; // Remember, Y stick value is reversed
-        double x = gamepad1.left_stick_x;
-        double rx = gamepad1.right_stick_x;
-
-        // This button choice was made so that it is hard to hit on accident,
-        // it can be freely changed based on preference.
-        // The equivalent button is start on Xbox-style controllers.
-        if (gamepad1.options) {
-            imu.resetYaw();
-        }
-
-        double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
-
-        // Rotate the movement direction counter to the bot's rotation
-        double rotX = x * Math.cos(-botHeading) - y * Math.sin(-botHeading);
-        double rotY = x * Math.sin(-botHeading) + y * Math.cos(-botHeading);
-
-        rotX = rotX * 1.1;  // Counteract imperfect strafing
-
-        // Denominator is the largest motor power (absolute value) or 1
-        // This ensures all the powers maintain the same ratio,
-        // but only if at least one is out of the range [-1, 1]
-        double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(rx), 1);
-        double frontLeftPower = (rotY + rotX + rx) / denominator;
-        double backLeftPower = (rotY - rotX + rx) / denominator;
-        double frontRightPower = (rotY - rotX - rx) / denominator;
-        double backRightPower = (rotY + rotX - rx) / denominator;
-
-        frontLeftMotor.setPower(frontLeftPower);
-        backLeftMotor.setPower(backLeftPower);
-        frontRightMotor.setPower(frontRightPower);
-        backRightMotor.setPower(backRightPower);
-    }
 }
