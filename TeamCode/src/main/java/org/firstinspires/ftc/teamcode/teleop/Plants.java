@@ -14,25 +14,25 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 @TeleOp
 public class Plants extends LinearOpMode {
     //naming different motors
-    private DcMotor RFMotor;
-    private DcMotor RBMotor;
-    private DcMotor LFMotor;
-    private DcMotor LBMotor;
-    private DcMotor RAMotor;
-    private DcMotor LAMotor;
-    private DcMotor IntaMotor; //Intake motor
-    private Servo ClawR; //Rotates Claw
-    private CRServo ClawP; //Closes (pinches) Claw
-    private Servo Flip; //Servo that flips the intake
-    private boolean isRunning = false;
-    private ElapsedTime runtime = new ElapsedTime();
-    private double power = 0.0; // Initial power setting
+    public DcMotor RFMotor;
+    public DcMotor RBMotor;
+    public DcMotor LFMotor;
+    public DcMotor LBMotor;
+    public DcMotor RAMotor;
+    public DcMotor LAMotor;
+    public DcMotor IntaMotor; //Intake motor
+    public Servo ClawR; //Rotates Claw
+    public CRServo ClawP; //Closes (pinches) Claw
+    public Servo Flip; //Servo that flips the intake
+    public boolean isRunning = false;
+    public ElapsedTime runtime = new ElapsedTime();
+    public double power = 0.0; // Initial power setting
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        RAMotor = hardwareMap.get(DcMotor.class,"RAMotor");
-        IntaMotor = hardwareMap.get(DcMotor.class,"IntaMotor");
+        RAMotor = hardwareMap.get(DcMotor.class, "RAMotor");
+        IntaMotor = hardwareMap.get(DcMotor.class, "IntaMotor");
         Flip = hardwareMap.servo.get("Flip");
         ClawP = hardwareMap.crservo.get("ClawP");
         ClawR = hardwareMap.servo.get("ClawR");
@@ -72,23 +72,24 @@ public class Plants extends LinearOpMode {
         imu.initialize(parameters);
 
 
-
-
         waitForStart();
         if (isStopRequested()) return;
-
         while (opModeIsActive()) {
 
+            double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
+            double x = gamepad1.left_stick_x * 1.1; //Correct imperf strafing
+            double rx = gamepad1.right_stick_x;
 
             double rightStickY = gamepad2.right_stick_y;
             double RAMotorPower = rightStickY;
             RAMotor.setPower(RAMotorPower);
 
+
             //Controls for the intake
             //the spin spin thing
             if (gamepad2.x) {
                 // If the X button is pressed, set the intake motor power to a positive value (e.g., 0.65 for power)
-                IntaMotor.setPower(0.65);
+                IntaMotor.setPower(-0.6);
             } else {
                 // If the X button is not pressed, stop the intake motor
                 IntaMotor.setPower(0);
@@ -112,10 +113,6 @@ public class Plants extends LinearOpMode {
             // Set the servo position
             ClawR.setPosition(servoPosition);
 
-
-            double y = gamepad1.left_stick_y; // Remember, Y stick value is reversed
-            double x = gamepad1.left_stick_x;
-            double rx = gamepad1.right_stick_x;
 
             // This button choice was made so that it is hard to hit on accident,
             // it can be freely changed based on preference.
@@ -148,4 +145,3 @@ public class Plants extends LinearOpMode {
         }
     }
 }
-
