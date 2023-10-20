@@ -42,9 +42,8 @@ public class Plants extends LinearOpMode {
         IntaMotor.setPower(0);
         final double FLIPHOME = 0.6;
         Flip.setPosition(FLIPHOME);
-        ClawR.setPosition(CLAWHOME);
+        //ClawR.setPosition(CLAWHOME);
         ClawR.setPosition(0);
-        double clawRotation = CLAWHOME;
         RAMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
@@ -103,13 +102,13 @@ public class Plants extends LinearOpMode {
             //Rotation of claw
             //brings claw back to home
             if (gamepad2.y) {
-                clawRotation = CLAWHOME; // Make sure you are using 'clawRotation' for controlling the claw's position
+                ClawR.setPosition(0); // Make sure you are using 'clawRotation' for controlling the claw's position
             }
 
             // Claw rotation controlled by the left joystick
             double yValue = -gamepad2.left_stick_y; // Negate the value if the servo moves in the opposite direction
             // Map the joystick value to the servo position range (adjust min and max as needed)
-            double servoPosition = (yValue + 1.0) / 2.0; // Convert range from -1 to 1 to 0 to 1
+            double servoPosition = yValue;
             // Set the servo position
             ClawR.setPosition(servoPosition);
 
