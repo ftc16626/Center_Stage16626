@@ -82,6 +82,9 @@ public class Plants extends LinearOpMode {
             double rx = gamepad1.right_stick_x;
 
             double rightStickY = gamepad2.right_stick_y;
+            double RAMotorPower = rightStickY;
+            RAMotor.setPower(RAMotorPower);
+
             double LAMotorPower = 0;
 
 
