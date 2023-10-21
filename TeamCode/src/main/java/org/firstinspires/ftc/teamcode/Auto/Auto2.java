@@ -31,11 +31,29 @@ public class Auto2 extends LinearOpMode {
 
     //@Override
     public void runOpMode() throws InterruptedException {
-//get motors from the hardware map (in the quotations are what the hardware objects are called in the configurations part of the driver station)
+//get motors from the hardware map (in the quotations are what the hardware objects are
+// called in the configurations part of the driver station)
         leftFront = hardwareMap.dcMotor.get("LFMotor");
         leftBack = hardwareMap.dcMotor.get("LBMotor");
         rightFront = hardwareMap.dcMotor.get("RFMotor");
         rightBack = hardwareMap.dcMotor.get("RBMotor");
+
+        RAMotor = hardwareMap.get(DcMotor.class, "RAMotor");
+        IntaMotor = hardwareMap.get(DcMotor.class, "IntaMotor");
+        Flip = hardwareMap.servo.get("Flip");
+        ClawP = hardwareMap.crservo.get("ClawP");
+        ClawR = hardwareMap.servo.get("ClawR");
+
+        final double CLAWHOME = 0;
+        ClawP.resetDeviceConfigurationForOpMode();
+        IntaMotor.setPower(0);
+        final double FLIPHOME = 0.6;
+        Flip.setPosition(FLIPHOME);
+        //ClawR.setPosition(CLAWHOME);
+        ClawR.setPosition(0);
+        RAMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+
 
 //armup = hardwareMap.dcMotor.get("arm1");
         // armdown = hardwareMap.dcMotor.get("arm2");
