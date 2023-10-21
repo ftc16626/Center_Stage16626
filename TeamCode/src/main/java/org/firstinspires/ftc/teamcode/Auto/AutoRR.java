@@ -1,19 +1,15 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
-// public class Auto2 {
-
-
-
-        import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import static java.lang.Thread.sleep;
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        import com.qualcomm.robotcore.hardware.DcMotor;
-        import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import static java.lang.Thread.sleep;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous
 
-public class AutoBL extends LinearOpMode {
+public class AutoRR extends LinearOpMode {
     //drivetrain motors
     DcMotor leftFront = null;
     DcMotor leftBack = null;
@@ -27,7 +23,7 @@ public class AutoBL extends LinearOpMode {
 
     int leftPos;
     int rightPos;
-    int MotorPower = 1;
+    double MotorPower = 0.25;
 
     //@Override
     public void runOpMode() throws InterruptedException {
@@ -38,7 +34,7 @@ public class AutoBL extends LinearOpMode {
         rightFront = hardwareMap.dcMotor.get("RFMotor");
         rightBack = hardwareMap.dcMotor.get("RBMotor");
 
-        RAMotor = hardwareMap.get(DcMotor.class, "RAMotor");
+/*      RAMotor = hardwareMap.get(DcMotor.class, "RAMotor");
         IntaMotor = hardwareMap.get(DcMotor.class, "IntaMotor");
         Flip = hardwareMap.servo.get("Flip");
         ClawP = hardwareMap.crservo.get("ClawP");
@@ -52,25 +48,29 @@ public class AutoBL extends LinearOpMode {
         //ClawR.setPosition(CLAWHOME);
         ClawR.setPosition(0);
         RAMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+*/
 
-
-
-//armup = hardwareMap.dcMotor.get("arm1");
-        // armdown = hardwareMap.dcMotor.get("arm2");
-
+// armup = hardwareMap.dcMotor.get("arm1");
+// armdown = hardwareMap.dcMotor.get("arm2");
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        // goes forward for 3 seconds then back and than raise's the arm
-        leftBack.setPower(MotorPower);
-        leftFront.setPower(-MotorPower);
-        rightBack.setPower(-MotorPower);
-        rightFront.setPower(MotorPower);
+
+        waitForStart();
+
+        if (isStopRequested()) return;
+
+        // Straffing
+        leftBack.setPower(-MotorPower);
+        leftFront.setPower(MotorPower);
+        rightBack.setPower(MotorPower);
+        rightFront.setPower(-MotorPower);
         sleep(850);
     }
 }
-        /*leftBack.setPower(-MotorPower);
+
+/*      leftBack.setPower(-MotorPower);
         leftFront.setPower(-MotorPower);
         rightFront.setPower(-MotorPower);
         rightBack.setPower(-MotorPower);/
@@ -79,8 +79,6 @@ public class AutoBL extends LinearOpMode {
         leftFront.setPower(0);
         rightBack.setPower(0);
         rightFront.setPower(0);
-
     }
 }
-
          */

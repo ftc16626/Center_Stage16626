@@ -23,7 +23,7 @@ public class AutoBL extends LinearOpMode {
 
     int leftPos;
     int rightPos;
-    int MotorPower = 1;
+    double MotorPower = 0.25;
 
     //@Override
     public void runOpMode() throws InterruptedException {
@@ -70,8 +70,7 @@ public class AutoBL extends LinearOpMode {
     }
 }
 
- */
-        /*leftBack.setPower(-MotorPower);
+/*      leftBack.setPower(-MotorPower);
         leftFront.setPower(-MotorPower);
         rightFront.setPower(-MotorPower);
         rightBack.setPower(-MotorPower);/
@@ -80,8 +79,6 @@ public class AutoBL extends LinearOpMode {
         leftFront.setPower(0);
         rightBack.setPower(0);
         rightFront.setPower(0);
-
     }
 }
-
          */
