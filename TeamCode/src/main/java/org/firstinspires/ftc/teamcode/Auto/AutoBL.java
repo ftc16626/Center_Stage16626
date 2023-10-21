@@ -34,7 +34,7 @@ public class AutoBL extends LinearOpMode {
         rightFront = hardwareMap.dcMotor.get("RFMotor");
         rightBack = hardwareMap.dcMotor.get("RBMotor");
 
-        RAMotor = hardwareMap.get(DcMotor.class, "RAMotor");
+/*      RAMotor = hardwareMap.get(DcMotor.class, "RAMotor");
         IntaMotor = hardwareMap.get(DcMotor.class, "IntaMotor");
         Flip = hardwareMap.servo.get("Flip");
         ClawP = hardwareMap.crservo.get("ClawP");
@@ -48,17 +48,20 @@ public class AutoBL extends LinearOpMode {
         //ClawR.setPosition(CLAWHOME);
         ClawR.setPosition(0);
         RAMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+*/
 
-
-
-//armup = hardwareMap.dcMotor.get("arm1");
-        // armdown = hardwareMap.dcMotor.get("arm2");
-
+// armup = hardwareMap.dcMotor.get("arm1");
+// armdown = hardwareMap.dcMotor.get("arm2");
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        // goes forward for 3 seconds then back and than raise's the arm
+
+        waitForStart();
+
+        if (isStopRequested()) return;
+
+        // Straffing
         leftBack.setPower(MotorPower);
         leftFront.setPower(-MotorPower);
         rightBack.setPower(-MotorPower);
@@ -66,6 +69,8 @@ public class AutoBL extends LinearOpMode {
         sleep(850);
     }
 }
+
+ */
         /*leftBack.setPower(-MotorPower);
         leftFront.setPower(-MotorPower);
         rightFront.setPower(-MotorPower);
