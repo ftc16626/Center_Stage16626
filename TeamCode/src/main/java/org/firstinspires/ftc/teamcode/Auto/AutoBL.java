@@ -1,15 +1,11 @@
 package org.firstinspires.ftc.teamcode.Auto;
 
-// public class Auto2 {
-
-
-
-        import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
-        import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-        import static java.lang.Thread.sleep;
-        import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-        import com.qualcomm.robotcore.hardware.DcMotor;
-        import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.hardwareMap;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import static java.lang.Thread.sleep;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous
 
