@@ -24,9 +24,10 @@ public class Plants extends LinearOpMode {
     public Servo ClawR; //Rotates Claw
     public CRServo ClawP; //Closes (pinches) Claw
     public Servo Flip; //Servo that flips the intake
+    public Servo Drone; //servo that releases the tension to then shoot the drone
     public boolean isRunning = false;
     public ElapsedTime runtime = new ElapsedTime();
-    public double power = 0.0; // Initial power setting
+    // public double power = 0.0; // Initial power setting
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -55,7 +56,7 @@ public class Plants extends LinearOpMode {
         DcMotor backRightMotor = hardwareMap.dcMotor.get("RBMotor");
         DcMotor LAMotor = hardwareMap.dcMotor.get("LAMotor");
         DcMotor RAMotor = hardwareMap.dcMotor.get("RAMotor");
-
+        Drone= hardwareMap.servo.get("Drone");
         // Reverse the right side motors. This may be wrong for your setup.
         // If your robot moves backwards when commanded to go forwards,
         // reverse the left side instead.
@@ -81,13 +82,14 @@ public class Plants extends LinearOpMode {
             double x = gamepad1.left_stick_x * 1.1; //Correct imperf strafing
             double rx = gamepad1.right_stick_x;
 
-            double rightStickY = gamepad2.right_stick_y;
+            double rightStickY = -gamepad2.right_stick_y;
             double RAMotorPower = rightStickY;
             RAMotor.setPower(RAMotorPower);
 
             // Claw rotation controlled by the left joystick
             double yValue = -gamepad2.left_stick_y; // Negate the value if the servo moves in the opposite direction
             // Map the joystick value to the servo position range (adjust min and max as needed)
+
             double servoPosition = yValue;
             // Set the servo position //DEREK LOOK AT THIS -Ari
             int rightBumperY = 1; //Adjust these as necessary. If you want it go go faster, increase it
@@ -133,6 +135,12 @@ public class Plants extends LinearOpMode {
             // The equivalent button is start on Xbox-style controllers.
             if (gamepad1.options) {
                 imu.resetYaw();
+            }
+            if (gamepad1.y){
+                Drone.setPosition(-.2);
+            }
+            if (gamepad1.b){
+                Drone.setPosition(0);
             }
 
             double botHeading = imu.getRobotYawPitchRollAngles().getYaw(AngleUnit.RADIANS);
