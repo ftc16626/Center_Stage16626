@@ -50,8 +50,14 @@ public class AutoBL extends LinearOpMode {
         RAMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 */
 
+<<<<<<< Updated upstream
 // armup = hardwareMap.dcMotor.get("arm1");
 // armdown = hardwareMap.dcMotor.get("arm2");
+=======
+//armup = hardwareMap.dcMotor.get("arm1");
+        // armdown = hardwareMap.dcMotor.get("arm2");
+
+>>>>>>> Stashed changes
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);
