@@ -16,10 +16,10 @@ public class AutoRR extends LinearOpMode {
     DcMotor rightFront = null;
     DcMotor rightBack = null;
 
+
     //arm motors
     DcMotor armdown = null;
     DcMotor armup = null;
-
 
     int leftPos;
     int rightPos;
