@@ -43,8 +43,8 @@ public class Plants extends LinearOpMode {
         final double FLIPHOME = 0.6;
         Flip.setPosition(FLIPHOME);
         //ClawR.setPosition(CLAWHOME);
-        ClawR.setPosition(0);
-        RAMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //ClawR.setPosition(0);
+
 
 
         // Declare our motors
