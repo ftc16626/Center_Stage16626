@@ -31,7 +31,7 @@ public class Plants extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        RAMotor = hardwareMap.get(DcMotor.class, "RAMotor");
+
         IntaMotor = hardwareMap.get(DcMotor.class, "IntaMotor");
         Flip = hardwareMap.servo.get("Flip");
         ClawP = hardwareMap.crservo.get("ClawP");
@@ -53,6 +53,8 @@ public class Plants extends LinearOpMode {
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("LBMotor");
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("RFMotor");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("RBMotor");
+        DcMotor LAMotor = hardwareMap.dcMotor.get("LAMotor");
+        DcMotor RAMotor = hardwareMap.dcMotor.get("RAMotor");
 
         // Reverse the right side motors. This may be wrong for your setup.
         // If your robot moves backwards when commanded to go forwards,
@@ -80,8 +82,8 @@ public class Plants extends LinearOpMode {
             double rx = gamepad1.right_stick_x;
 
             double rightStickY = gamepad2.right_stick_y;
-            double RAMotorPower = 0;
-
+            double RAMotorPower = rightStickY;
+            RAMotor.setPower(RAMotorPower);
 
             // Claw rotation controlled by the left joystick
             double yValue = -gamepad2.left_stick_y; // Negate the value if the servo moves in the opposite direction
@@ -90,13 +92,14 @@ public class Plants extends LinearOpMode {
             // Set the servo position //DEREK LOOK AT THIS -Ari
             int rightBumperY = 1; //Adjust these as necessary. If you want it go go faster, increase it
             int leftBumperY = 1;
+            int LAMotorPower = 0;
 
             if(gamepad1.left_bumper == true){
-                RAMotorPower += -leftBumperY;
+                LAMotorPower += -leftBumperY;
             }
 
             if(gamepad1.right_bumper == true){
-                RAMotorPower += rightBumperY;
+                LAMotorPower += rightBumperY;
             }
 
             //Controls for the intake
@@ -154,7 +157,7 @@ public class Plants extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
             ClawR.setPosition(servoPosition); //DEREK LOOK AT THIS -ARI
-            RAMotor.setPower(RAMotorPower);
+            LAMotor.setPower(LAMotorPower);
         }
     }
 }
