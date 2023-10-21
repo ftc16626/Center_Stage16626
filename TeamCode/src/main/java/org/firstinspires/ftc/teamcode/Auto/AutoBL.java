@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous
+@Autonomous (name="Autonomous BL")
 
 public class AutoBL extends LinearOpMode {
     //drivetrain motors
@@ -49,15 +49,6 @@ public class AutoBL extends LinearOpMode {
         ClawR.setPosition(0);
         RAMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 */
-
-<<<<<<< Updated upstream
-// armup = hardwareMap.dcMotor.get("arm1");
-// armdown = hardwareMap.dcMotor.get("arm2");
-=======
-//armup = hardwareMap.dcMotor.get("arm1");
-        // armdown = hardwareMap.dcMotor.get("arm2");
-
->>>>>>> Stashed changes
 
         leftFront.setDirection(DcMotorSimple.Direction.REVERSE);
         leftBack.setDirection(DcMotorSimple.Direction.REVERSE);

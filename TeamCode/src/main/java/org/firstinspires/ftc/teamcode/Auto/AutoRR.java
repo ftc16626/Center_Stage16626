@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-@Autonomous
+@Autonomous (name="Autonomous RR")
 
 public class AutoRR extends LinearOpMode {
     //drivetrain motors
