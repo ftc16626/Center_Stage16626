@@ -80,15 +80,24 @@ public class Plants extends LinearOpMode {
             double rx = gamepad1.right_stick_x;
 
             double rightStickY = gamepad2.right_stick_y;
-            double RAMotorPower = rightStickY;
-            RAMotor.setPower(RAMotorPower);
+            double RAMotorPower = 0;
+
 
             // Claw rotation controlled by the left joystick
             double yValue = -gamepad2.left_stick_y; // Negate the value if the servo moves in the opposite direction
             // Map the joystick value to the servo position range (adjust min and max as needed)
             double servoPosition = yValue;
             // Set the servo position //DEREK LOOK AT THIS -Ari
+            int rightBumperY = 1; //Adjust these as necessary. If you want it go go faster, increase it
+            int leftBumperY = 1;
 
+            if(gamepad1.left_bumper == true){
+                RAMotorPower += -leftBumperY;
+            }
+
+            if(gamepad1.right_bumper == true){
+                RAMotorPower += rightBumperY;
+            }
 
             //Controls for the intake
             //the spin spin thing
@@ -110,8 +119,12 @@ public class Plants extends LinearOpMode {
             if (gamepad2.y) {
                 ClawR.setPosition(0);// Make sure you are using 'clawRotation' for controlling the claw's position
             }
-
-
+            if (gamepad2.left_bumper) {
+                ClawP.setPower(-1);
+            }
+            if (gamepad2.right_bumper) {
+                ClawP.setPower(1);
+            }
             // This button choice was made so that it is hard to hit on accident,
             // it can be freely changed based on preference.
             // The equivalent button is start on Xbox-style controllers.
@@ -141,7 +154,7 @@ public class Plants extends LinearOpMode {
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
             ClawR.setPosition(servoPosition); //DEREK LOOK AT THIS -ARI
-
+            RAMotor.setPower(RAMotorPower);
         }
     }
 }
