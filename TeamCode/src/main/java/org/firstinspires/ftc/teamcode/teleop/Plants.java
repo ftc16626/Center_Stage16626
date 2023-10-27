@@ -63,6 +63,8 @@ public class Plants extends LinearOpMode {
         // See the note about this earlier on this page.
         frontRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         backRightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        RAMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RAMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Retrieve the IMU from the hardware map
         IMU imu = hardwareMap.get(IMU.class, "imu");
@@ -80,7 +82,7 @@ public class Plants extends LinearOpMode {
 
             double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
             double x = gamepad1.left_stick_x * 1.1; //Correct imperf strafing
-            double rx = gamepad1.right_stick_x;
+            double rx = -gamepad1.right_stick_x;
 
             double rightStickY = -gamepad2.right_stick_y;
             double RAMotorPower = rightStickY;
@@ -96,19 +98,22 @@ public class Plants extends LinearOpMode {
             int leftBumperY = 1;
             int LAMotorPower = 0;
 
-            if(gamepad1.left_bumper == true){
-                LAMotorPower += -leftBumperY;
+            if(gamepad2.left_bumper == true){
+                ClawP.setPower(-0.5);
+            }
+            else if(gamepad2.right_bumper == true){
+                ClawP.setPower(0.5);
             }
 
-            if(gamepad1.right_bumper == true){
-                LAMotorPower += rightBumperY;
+            if (gamepad2.left_bumper == false && gamepad2.right_bumper == false) {
+                ClawP.setPower(0);
             }
 
             //Controls for the intake
             //the spin spin thing
             if (gamepad2.x) {
                 // If the X button is pressed, set the intake motor power to a positive value (e.g., 0.65 for power)
-                IntaMotor.setPower(-0.6);
+                IntaMotor.setPower(-0.7);
             } else {
                 // If the X button is not pressed, stop the intake motor
                 IntaMotor.setPower(0);
@@ -124,12 +129,7 @@ public class Plants extends LinearOpMode {
             if (gamepad2.y) {
                 ClawR.setPosition(0);// Make sure you are using 'clawRotation' for controlling the claw's position
             }
-            if (gamepad2.left_bumper) {
-                ClawP.setPower(-1);
-            }
-            if (gamepad2.right_bumper) {
-                ClawP.setPower(1);
-            }
+
             // This button choice was made so that it is hard to hit on accident,
             // it can be freely changed based on preference.
             // The equivalent button is start on Xbox-style controllers.
@@ -164,8 +164,13 @@ public class Plants extends LinearOpMode {
             backLeftMotor.setPower(backLeftPower);
             frontRightMotor.setPower(frontRightPower);
             backRightMotor.setPower(backRightPower);
-            ClawR.setPosition(servoPosition); //DEREK LOOK AT THIS -ARI
+            ClawR.setPosition(ClawR.getPosition() + (yValue / 400)); //DEREK LOOK AT THIS -ARI
+            //i dont like the sounds the servo makes but it works kinda -malachi
             LAMotor.setPower(LAMotorPower);
+
+            telemetry.addLine(String.valueOf(ClawR.getPosition()));
+            telemetry.addLine(String.valueOf(RAMotor.getCurrentPosition()));
+            telemetry.update();
         }
     }
-}
+} 
