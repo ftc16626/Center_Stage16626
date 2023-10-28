@@ -1,39 +1,31 @@
 package org.firstinspires.ftc.teamcode.Auto;
-
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
-import org.firstinspires.ftc.teamcode.drive.DriveConstants;
+/*import org.firstinspires.ftc.teamcode.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.teleop.teleop;
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
+ */ //These imports are from a system called RoadRunner: https://learnroadrunner.com/installing.html#method-1-downloading-the-quickstart
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
-import org.firstinspires.ftc.teamcode.teleop.RobotCentricSample;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceBuilder;
-import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequenceRunner;
 
 import java.util.Arrays;
 
 
 @Autonomous (name="Autonomous")
 
-public class Auto extends LinearOpMode {
+public class AutoTutorial extends LinearOpMode {
 
     // position variables
     private int liftPos;
     private double bucketPos;
     private double distanceToHub;
-    private double bucketDumpPos;
+    private double bucketDumpPos; //Hi allie
 
     //define dcmotors
     DcMotor leftFront = null;
