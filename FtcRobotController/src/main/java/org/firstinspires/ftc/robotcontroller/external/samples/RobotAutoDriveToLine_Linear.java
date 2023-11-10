@@ -129,6 +129,7 @@ public class RobotAutoDriveToLine_Linear extends LinearOpMode {
         // Stop all motors
         leftDrive.setPower(0);
         rightDrive.setPower(0);
+        return 0;
     }
 
     // to obtain reflected light, read the normalized values from the color sensor.  Return the Alpha channel.

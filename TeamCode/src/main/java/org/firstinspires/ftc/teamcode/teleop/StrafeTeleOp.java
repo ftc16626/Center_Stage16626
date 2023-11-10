@@ -74,7 +74,7 @@ public class StrafeTeleOp extends LinearOpMode {
 
         //ARI COMMENT: this is where you press the start button on the robot controller. Everything after this is what runs when you're in the game
         waitForStart();
-        if (isStopRequested()) return;
+        if (isStopRequested()) return 0;
         while (opModeIsActive()) {
             double y = gamepad1.left_stick_y; // Remember, Y stick value is reversed
             double x = gamepad1.left_stick_x;
@@ -139,5 +139,6 @@ public class StrafeTeleOp extends LinearOpMode {
 
 
         }
+        return 0;
     }
 }

@@ -224,7 +224,7 @@ public class AutoTutorial extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return;
+        if (isStopRequested()) return width;
 
 
         //RED
@@ -415,7 +415,7 @@ public class AutoTutorial extends LinearOpMode {
         }
 
 
-
+        return width;
     }
 
 

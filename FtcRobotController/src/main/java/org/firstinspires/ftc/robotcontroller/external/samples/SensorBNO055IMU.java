@@ -107,6 +107,7 @@ public class SensorBNO055IMU extends LinearOpMode
         while (opModeIsActive()) {
             telemetry.update();
         }
+        return 0;
     }
 
     //----------------------------------------------------------------------------------------------

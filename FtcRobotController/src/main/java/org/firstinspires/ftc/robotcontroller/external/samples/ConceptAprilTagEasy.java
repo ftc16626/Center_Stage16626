@@ -111,6 +111,7 @@ public class ConceptAprilTagEasy extends LinearOpMode {
         // Save more CPU resources when camera is no longer needed.
         visionPortal.close();
 
+        return 0;
     }   // end method runOpMode()
 
     /**

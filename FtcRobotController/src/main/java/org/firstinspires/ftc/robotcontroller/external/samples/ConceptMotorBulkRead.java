@@ -213,6 +213,7 @@ public class ConceptMotorBulkRead extends LinearOpMode {
 
         // wait until op-mode is stopped by user, before clearing display.
         while (opModeIsActive()) ;
+        return cycles;
     }
 
     // Display three comparison times.

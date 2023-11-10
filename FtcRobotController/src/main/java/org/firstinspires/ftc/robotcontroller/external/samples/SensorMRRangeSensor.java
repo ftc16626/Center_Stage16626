@@ -66,5 +66,6 @@ public class SensorMRRangeSensor extends LinearOpMode {
             telemetry.addData("cm", "%.2f cm", rangeSensor.getDistance(DistanceUnit.CM));
             telemetry.update();
         }
+        return 0;
     }
 }

@@ -74,7 +74,7 @@ public class Plants extends LinearOpMode {
 
 
         waitForStart();
-        if (isStopRequested()) return;
+        if (isStopRequested()) return 0;
         while (opModeIsActive()) {
 
             double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
@@ -166,5 +166,6 @@ public class Plants extends LinearOpMode {
             ClawR.setPosition(servoPosition); //DEREK LOOK AT THIS -ARI
 
         }
+        return 0;
     }
 }
