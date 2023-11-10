@@ -62,6 +62,11 @@ import java.util.concurrent.TimeUnit;
 public class SensorHuskyLens extends LinearOpMode {
 
     private final int READ_PERIOD = 1;
+   // the following "int's" are variables referencing the position where the prop is and thus where the robot must go to, so in code it should
+    // say that whatever variable was found, it will then go to such position
+    int A;
+    int B;
+    int C;
 
     private HuskyLens huskyLens;
 
@@ -140,6 +145,33 @@ public class SensorHuskyLens extends LinearOpMode {
             telemetry.addData("Block count", blocks.length);
             for (int i = 0; i < blocks.length; i++) {
                 telemetry.addData("Block", blocks[i].toString());
+            }
+
+                HuskyLens.Block[] blocks = huskyLens.blocks();
+
+                for (int i = 0; i < blocks.length; i++) {
+                    HuskyLens.Block block = blocks[i];
+
+                    int x = block.x; // Assuming x is the X-coordinate of the block
+                    int y = block.y; // Assuming y is the Y-coordinate of the block
+
+                    int quadrant = (x, y);
+
+                    telemetry.addData("Block", "X: " + x + ", Y: " + y + " | Quadrant: " + quadrant);
+                }
+
+                telemetry.update();
+            }
+
+// Function to determine the quadrant
+            int getQuadrantByX(int x) {
+                if (x > 0 && x < 80) {
+                    return A;
+                } else if (x > 80 && x < 240 ) {
+                    return B;
+                } else if (x > 240) {
+                    return C;
+                }
             }
 
             telemetry.update();
