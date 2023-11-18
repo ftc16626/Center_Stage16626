@@ -160,6 +160,15 @@ public class SensorHuskyLens extends LinearOpMode {
                 }
                 
                 telemetry.addData("Zone", zone);
+            } /* code below here is added by derek, attempt/pseudo at using the roadrunner and having the bot
+            move around as meant to
+            */
+            if (zone == 2) {
+            // Drives forward 28 inches
+                new TrajectoryBuilder(new Pose2d())
+                        .forward(28)
+                        .build();
+
             }
 
             telemetry.update();
