@@ -33,6 +33,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.hardware.dfrobot.HuskyLens.Block;
@@ -42,6 +43,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
+import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
 import java.util.concurrent.TimeUnit;
 
@@ -114,8 +116,14 @@ public class SensorHuskyLens extends LinearOpMode {
          */
         huskyLens.selectAlgorithm(HuskyLens.Algorithm.TAG_RECOGNITION);
         huskyLens.selectAlgorithm(HuskyLens.Algorithm.OBJECT_TRACKING);
-
+        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
+
+        //  Zone 1
+        Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
+                .forward(5)
+                .build();
+
         waitForStart();
 
         /*
@@ -166,11 +174,7 @@ public class SensorHuskyLens extends LinearOpMode {
             move around as meant to
             */
             if (zone == 2) {
-            // Drives forward 28 inches
-                new TrajectoryBuilder(new Pose2d())
-                        .forward(28)
-                        .build();
-
+                drive.followTrajectory(t0);
             }
 
             telemetry.update();
