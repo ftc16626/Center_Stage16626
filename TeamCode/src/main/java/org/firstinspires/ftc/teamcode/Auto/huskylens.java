@@ -32,6 +32,8 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 package org.firstinspires.ftc.teamcode.Auto;
 
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.hardware.dfrobot.HuskyLens.Block;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -130,7 +132,7 @@ public class SensorHuskyLens extends LinearOpMode {
             
             final int AREAONE = 105;
             final int AREATWO = 210;
-            int zone;
+            int zone = 0;
 
             /*
              * All algorithms, except for LINE_TRACKING, return a list of Blocks where a
