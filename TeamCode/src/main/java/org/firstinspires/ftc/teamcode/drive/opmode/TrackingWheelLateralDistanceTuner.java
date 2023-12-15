@@ -85,7 +85,7 @@ public class TrackingWheelLateralDistanceTuner extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return false;
+
 
         telemetry.clearAll();
         telemetry.update();
@@ -126,6 +126,6 @@ public class TrackingWheelLateralDistanceTuner extends LinearOpMode {
         telemetry.update();
 
         while (!isStopRequested()) idle();
-        return tuningFinished;
+
     }
 }

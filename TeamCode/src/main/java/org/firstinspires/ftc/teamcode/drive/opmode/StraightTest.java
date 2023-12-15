@@ -31,7 +31,7 @@ public class StraightTest extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return false;
+
 
         drive.followTrajectory(trajectory);
 
@@ -42,6 +42,6 @@ public class StraightTest extends LinearOpMode {
         telemetry.update();
 
         while (!isStopRequested() && opModeIsActive()) ;
-        return false;
+
     }
 }

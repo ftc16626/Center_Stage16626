@@ -73,6 +73,6 @@ public class ConceptGamepadTouchpad extends LinearOpMode
             telemetry.update();
             sleep(10);
         }
-        return false;
+
     }
 }

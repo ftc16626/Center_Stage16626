@@ -119,7 +119,7 @@ public class ConceptDoubleVision extends LinearOpMode {
 
         }   // end while loop
 
-        return false;
+
     }   // end method runOpMode()
 
 

@@ -167,7 +167,7 @@ public class ConceptExploringIMUOrientation extends LinearOpMode {
 
             telemetry.update();
         }
-        return justChangedLogoDirection;
+
     }
 
     // apply any requested orientation changes.

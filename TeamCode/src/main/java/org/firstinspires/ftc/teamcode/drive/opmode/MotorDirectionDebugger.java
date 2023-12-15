@@ -55,7 +55,7 @@ public class MotorDirectionDebugger extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return false;
+
 
         telemetry.clearAll();
         telemetry.setDisplayFormat(Telemetry.DisplayFormat.HTML);
@@ -89,6 +89,6 @@ public class MotorDirectionDebugger extends LinearOpMode {
 
             telemetry.update();
         }
-        return false;
+
     }
 }

@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp (name = "armSample") //ARI COMMENT: this name is going to show up on your robot controller
@@ -74,7 +76,7 @@ public class StrafeTeleOp extends LinearOpMode {
 
         //ARI COMMENT: this is where you press the start button on the robot controller. Everything after this is what runs when you're in the game
         waitForStart();
-        if (isStopRequested()) return false;
+
         while (opModeIsActive()) {
             double y = gamepad1.left_stick_y; // Remember, Y stick value is reversed
             double x = gamepad1.left_stick_x;
@@ -119,7 +121,7 @@ public class StrafeTeleOp extends LinearOpMode {
             motorType.setTicksPerRev(28);
 
             // The encoder counts 28 ticks per revolution
-            motorType.setAchieveableMaxRPMFraction(.67);
+            ((MotorConfigurationType) motorType).setAchieveableMaxRPMFraction(.67);
             motor.setMotorType(motorType);
 // The motor can reach its maximum rpm
             // Set the motor mode to run using encoder
@@ -139,6 +141,6 @@ public class StrafeTeleOp extends LinearOpMode {
 
 
         }
-        return false;
+
     }
 }

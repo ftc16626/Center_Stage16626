@@ -171,6 +171,11 @@ public class SensorHuskyLens extends LinearOpMode {
             }
             telemetry.addData("Zone", zone);
         } /* code below here is added by derek, attempt at using the roadrunner and having the bot
+=======
+                
+                telemetry.addData("Zone", zone);
+            } /* code below here is added by derek, attempt/pseudo at using the roadrunner and having the bot
+>>>>>>> parent of b5421a9 (trying to have roadrunner working)
             move around as meant to
             */
         if (zone == 2) {

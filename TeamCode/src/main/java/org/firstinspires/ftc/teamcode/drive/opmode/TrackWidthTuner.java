@@ -44,7 +44,7 @@ public class TrackWidthTuner extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return false;
+
 
         telemetry.clearAll();
         telemetry.addLine("Running...");
@@ -84,6 +84,6 @@ public class TrackWidthTuner extends LinearOpMode {
         while (!isStopRequested()) {
             idle();
         }
-        return false;
+
     }
 }

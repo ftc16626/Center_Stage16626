@@ -74,6 +74,6 @@ public class SensorTouch extends LinearOpMode {
 
             telemetry.update();
         }
-        return false;
+
     }
 }

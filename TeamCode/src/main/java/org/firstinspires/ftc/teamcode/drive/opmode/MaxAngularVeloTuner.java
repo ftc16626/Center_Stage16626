@@ -69,6 +69,6 @@ public class MaxAngularVeloTuner extends LinearOpMode {
         telemetry.update();
 
         while (!isStopRequested()) idle();
-        return false;
+
     }
 }
