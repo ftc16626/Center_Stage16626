@@ -154,6 +154,7 @@ public class ConceptTelemetry extends LinearOpMode  {
             // Update loop info
             loopCount++;
         }
+        return false;
     }
 
     // emits a line of poetry to the telemetry log

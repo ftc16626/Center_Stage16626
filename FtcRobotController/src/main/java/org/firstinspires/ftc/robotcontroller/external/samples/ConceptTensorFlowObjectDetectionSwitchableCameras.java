@@ -107,6 +107,7 @@ public class ConceptTensorFlowObjectDetectionSwitchableCameras extends LinearOpM
         // Save more CPU resources when camera is no longer needed.
         visionPortal.close();
 
+        return false;
     }   // end runOpMode()
 
     /**

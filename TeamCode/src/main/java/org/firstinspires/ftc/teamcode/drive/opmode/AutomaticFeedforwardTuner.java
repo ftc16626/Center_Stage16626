@@ -56,7 +56,7 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return;
+        if (isStopRequested()) return false;
 
         telemetry.clearAll();
         telemetry.addLine("Would you like to fit kStatic?");
@@ -217,5 +217,6 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
         while (!isStopRequested()) {
             idle();
         }
+        return fitIntercept;
     }
 }

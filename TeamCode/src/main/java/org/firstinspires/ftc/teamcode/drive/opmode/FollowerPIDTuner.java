@@ -36,7 +36,7 @@ public class FollowerPIDTuner extends LinearOpMode {
 
         waitForStart();
 
-        if (isStopRequested()) return;
+        if (isStopRequested()) return false;
 
         while (!isStopRequested()) {
             TrajectorySequence trajSeq = drive.trajectorySequenceBuilder(startPose)
@@ -51,5 +51,6 @@ public class FollowerPIDTuner extends LinearOpMode {
                     .build();
             drive.followTrajectorySequence(trajSeq);
         }
+        return false;
     }
 }

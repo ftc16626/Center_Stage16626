@@ -108,6 +108,7 @@ public class ConceptTensorFlowObjectDetection extends LinearOpMode {
         // Save more CPU resources when camera is no longer needed.
         visionPortal.close();
 
+        return false;
     }   // end runOpMode()
 
     /**

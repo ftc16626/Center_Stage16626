@@ -71,8 +71,7 @@ public class SensorHuskyLens extends LinearOpMode {
     private HuskyLens huskyLens;
 
     @Override
-    public void runOpMode()
-    {
+    public void runOpMode() {
         huskyLens = hardwareMap.get(HuskyLens.class, "HuskyLens");
 
         /*
@@ -114,8 +113,7 @@ public class SensorHuskyLens extends LinearOpMode {
          * within the OpMode by calling selectAlgorithm() and passing it one of the values
          * found in the enumeration HuskyLens.Algorithm.
          */
-        huskyLens.selectAlgorithm(HuskyLens.Algorithm.TAG_RECOGNITION);
-        huskyLens.selectAlgorithm(HuskyLens.Algorithm.OBJECT_TRACKING);
+        huskyLens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
@@ -132,15 +130,16 @@ public class SensorHuskyLens extends LinearOpMode {
          *
          * Note again that the device only recognizes the 36h11 family of tags out of the box.
          */
-        while(opModeIsActive()) {
+        int zone = 0;
+        while (opModeIsActive()) {
             if (!rateLimit.hasExpired()) {
                 continue;
             }
             rateLimit.reset();
-            
+
             final int AREAONE = 105;
             final int AREATWO = 210;
-            int zone = 0;
+            zone = 0;
 
             /*
              * All algorithms, except for LINE_TRACKING, return a list of Blocks where a
@@ -153,40 +152,32 @@ public class SensorHuskyLens extends LinearOpMode {
              */
 
             // The following 6 lines of code took like 8 days to get working 
-            
+
             HuskyLens.Block[] blocks = huskyLens.blocks();
             telemetry.addData("Block count", blocks.length);
             telemetry.addData("Blocks to string", blocks.toString());
             for (int i = 0; i < blocks.length; i++) {
                 int blockX = blocks[i].x;
                 telemetry.addData("Block X", blockX);
-               /*
+
                 if (blockX <= AREAONE) {
                     zone = 1;
-                } else if (blockX <= AREATWO){
+                } else if (blockX <= AREATWO) {
                     zone = 2;
                 } else {
                     zone = 3;
                 }
-                */
-                int getQuadrantByX(int x) {
-                    if (x > 0 && x < 80) {
-                        return zone == 1;
-                    } else if (x > 80 && x < 240 ) {
-                        return zone == 2;
-                    } else if (x > 240) {
-                        return zone == 3;
-                    }
-                }
-                telemetry.addData("Zone", zone);
-            } /* code below here is added by derek, attempt at using the roadrunner and having the bot
+
+            }
+            telemetry.addData("Zone", zone);
+        } /* code below here is added by derek, attempt at using the roadrunner and having the bot
             move around as meant to
             */
-            if (zone == 2) {
-                drive.followTrajectory(t0);
-            }
-
-            telemetry.update();
+        if (zone == 2) {
+            drive.followTrajectory(t0);
         }
+
+        telemetry.update();
     }
-}
+    }
+
