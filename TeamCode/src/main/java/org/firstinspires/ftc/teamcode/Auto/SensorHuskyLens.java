@@ -160,7 +160,7 @@ public class SensorHuskyLens extends LinearOpMode {
             for (int i = 0; i < blocks.length; i++) {
                 int blockX = blocks[i].x;
                 telemetry.addData("Block X", blockX);
-                
+               /*
                 if (blockX <= AREAONE) {
                     zone = 1;
                 } else if (blockX <= AREATWO){
@@ -168,9 +168,18 @@ public class SensorHuskyLens extends LinearOpMode {
                 } else {
                     zone = 3;
                 }
-                
+                */
+                int getQuadrantByX(int x) {
+                    if (x > 0 && x < 80) {
+                        return zone == 1;
+                    } else if (x > 80 && x < 240 ) {
+                        return zone == 2;
+                    } else if (x > 240) {
+                        return zone == 3;
+                    }
+                }
                 telemetry.addData("Zone", zone);
-            } /* code below here is added by derek, attempt/pseudo at using the roadrunner and having the bot
+            } /* code below here is added by derek, attempt at using the roadrunner and having the bot
             move around as meant to
             */
             if (zone == 2) {
