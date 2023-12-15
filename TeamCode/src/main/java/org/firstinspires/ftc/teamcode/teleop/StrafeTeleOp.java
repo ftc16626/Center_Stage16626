@@ -7,6 +7,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 @TeleOp (name = "armSample") //ARI COMMENT: this name is going to show up on your robot controller
@@ -130,7 +132,7 @@ public class StrafeTeleOp extends LinearOpMode {
             double rightTrigger = gamepad2.right_trigger;
 
             // Calculate the desired velocity in ticks per second
-            double velocity = (rightTrigger - leftTrigger) * motorType.getMaxRPM() * motorType.getTicksPerRev() / 60.0;
+            double velocity = (rightTrigger - leftTrigger) * motorType.getMaxRPM() * ((MotorConfigurationType) motorType).getTicksPerRev() / 60.0;
 
             // Set the motor power to the desired velocity
             // By setting these values to new Gamepad(), they will default to all
