@@ -34,14 +34,10 @@ package org.firstinspires.ftc.teamcode.Auto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
-import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.hardware.dfrobot.HuskyLens.Block;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
@@ -64,9 +60,9 @@ import java.util.concurrent.TimeUnit;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@Autonomous(name = "blueLeft", group = "Sensor")
+@Autonomous(name = "blueRight", group = "Sensor")
 
-public class SensorHuskyLens extends LinearOpMode {
+public class blueRight extends LinearOpMode {
 
     public Servo Stick;
     private final int READ_PERIOD = 1;
@@ -124,14 +120,6 @@ public class SensorHuskyLens extends LinearOpMode {
         //  Zone 1
         Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
                 .forward(2.5)
-                .build();
-
-        Trajectory t1 = drive.trajectoryBuilder(t0.end())
-                .back(2.3)
-                .build();
-
-        Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .back(2.3)
                 .build();
 
 
@@ -200,10 +188,6 @@ public class SensorHuskyLens extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t0);
                 Stick.setPosition(.8);
-                drive.followTrajectory(t1);
-                sleep(9000);
-                drive.turn(Math.toRadians(-4.7));
-                drive.followTrajectory(t2);
                 sleep(1000000000);
 
 
