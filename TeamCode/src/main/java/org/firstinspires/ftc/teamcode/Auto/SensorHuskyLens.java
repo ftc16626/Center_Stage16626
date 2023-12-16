@@ -131,7 +131,7 @@ public class SensorHuskyLens extends LinearOpMode {
                 .build();
 
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .back(2.3)
+                .strafeLeft(8)
                 .build();
 
 
@@ -202,7 +202,6 @@ public class SensorHuskyLens extends LinearOpMode {
                 Stick.setPosition(.8);
                 drive.followTrajectory(t1);
                 sleep(9000);
-                drive.turn(Math.toRadians(-4.7));
                 drive.followTrajectory(t2);
                 sleep(1000000000);
 
