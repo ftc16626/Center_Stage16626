@@ -119,7 +119,7 @@ public class blueRight extends LinearOpMode {
 
         //  Zone 1
         Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
-                .forward(2.5)
+                .forward(2.3)
                 .build();
 
 
