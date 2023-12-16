@@ -136,20 +136,23 @@ public class SensorHuskyLens extends LinearOpMode {
 
         //Zone 1
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .strafeLeft(2.3)
+                .strafeLeft(3.8)
                 .build();
 
         Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                .forward(8)
+                .forward(5)
                 .build();
 
         //Zone 3
         Trajectory t5 = drive.trajectoryBuilder(t4.end())
-                .strafeRight(2.3)
+                .strafeRight(3.5)
                 .build();
 
         Trajectory t6 = drive.trajectoryBuilder(t5.end())
-                .back(8)
+                .back(5)
+                .build();
+        Trajectory t7 = drive.trajectoryBuilder(new Pose2d())
+                .forward(2.7)
                 .build();
 
         waitForStart();
@@ -207,7 +210,7 @@ public class SensorHuskyLens extends LinearOpMode {
                 Stick.setPosition(0);
                 sleep(1000);
                 drive.followTrajectory(t0);
-                drive.turn(Math.toRadians(4.7));
+                drive.turn(Math.toRadians(5));
                 Stick.setPosition(.8);
                 sleep(1000);
                 drive.followTrajectory(t3);
@@ -222,7 +225,7 @@ public class SensorHuskyLens extends LinearOpMode {
                 drive.followTrajectory(t0);
                 Stick.setPosition(.8);
                 drive.followTrajectory(t1);
-                sleep(9000);
+                sleep(1000);
                 drive.followTrajectory(t2);
                 sleep(1000000000);
 
@@ -231,13 +234,13 @@ public class SensorHuskyLens extends LinearOpMode {
             if (zone == 3) {
                 Stick.setPosition(0);
                 sleep(1000);
-                drive.followTrajectory(t0);
-                drive.turn(Math.toRadians(-4.7));
+                drive.followTrajectory(t7);
+                drive.turn(Math.toRadians(-5.4));
                 Stick.setPosition(.8);
-                sleep(1000000);
+                sleep(1000);
                 drive.followTrajectory(t5);
-                sleep(100000);
                 drive.followTrajectory(t6);
+                sleep(1000000);
             }
 
             telemetry.update();
