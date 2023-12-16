@@ -77,7 +77,7 @@ public class SensorHuskyLens extends LinearOpMode {
     public void runOpMode()
     {
         huskyLens = hardwareMap.get(HuskyLens.class, "HuskyLens");
-        Stick = (Servo) hardwareMap.get("Stick");
+        Stick = hardwareMap.servo.get("Stick");
         /*
          * This sample rate limits the reads solely to allow a user time to observe
          * what is happening on the Driver Station telemetry.  Typical applications
