@@ -34,10 +34,14 @@ package org.firstinspires.ftc.teamcode.Auto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
+import com.acmerobotics.roadrunner.trajectory.TrajectoryBuilder;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.hardware.dfrobot.HuskyLens.Block;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
@@ -52,7 +56,7 @@ import java.util.concurrent.TimeUnit;
  * detect a number of predefined objects and AprilTags in the 36h11 family, can
  * recognize colors, and can be trained to detect custom objects. See this website for
  * documentation: https://wiki.dfrobot.com/HUSKYLENS_V1.0_SKU_SEN0305_SEN0336
- * 
+ *
  * This sample illustrates how to detect AprilTags, but can be used to detect other types
  * of objects by changing the algorithm. It assumes that the HuskyLens is configured with
  * a name of "huskylens".
@@ -117,11 +121,39 @@ public class redRight extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
-        //  Zone 1
+        //  Zone 2
         Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
                 .forward(2.5)
                 .build();
 
+        Trajectory t1 = drive.trajectoryBuilder(t0.end())
+                .back(2.3)
+                .build();
+
+        Trajectory t2 = drive.trajectoryBuilder(t1.end())
+                .strafeRight(8)
+                .build();
+
+        //Zone 1
+        Trajectory t3 = drive.trajectoryBuilder(t2.end())
+                .strafeLeft(3.8)
+                .build();
+
+        Trajectory t4 = drive.trajectoryBuilder(t3.end())
+                .back(5)
+                .build();
+
+        //Zone 3
+        Trajectory t5 = drive.trajectoryBuilder(t4.end())
+                .strafeRight(3.5)
+                .build();
+
+        Trajectory t6 = drive.trajectoryBuilder(t5.end())
+                .forward(5)
+                .build();
+        Trajectory t7 = drive.trajectoryBuilder(new Pose2d())
+                .forward(2.7)
+                .build();
 
         waitForStart();
 
@@ -136,7 +168,7 @@ public class redRight extends LinearOpMode {
                 continue;
             }
             rateLimit.reset();
-            
+
             final int AREAONE = 105;
             final int AREATWO = 210;
             final int AREATHREE = 211;
@@ -152,15 +184,15 @@ public class redRight extends LinearOpMode {
              * Returns an empty array if no objects are seen.
              */
 
-            // The following 6 lines of code took like 8 days to get working 
-            
+            // The following 6 lines of code took like 8 days to get working
+
             Block[] blocks = huskyLens.blocks();
             telemetry.addData("Block count", blocks.length);
             telemetry.addData("Blocks to string", blocks.toString());
             for (int i = 0; i < blocks.length; i++) {
                 int blockX = blocks[i].x;
                 telemetry.addData("Block X", blockX);
-                
+
                 if (blockX <= AREAONE) {
                     zone = 1;
                 } else if (blockX <= AREATWO){
@@ -168,7 +200,7 @@ public class redRight extends LinearOpMode {
                 } else if (blockX >= AREATHREE){
                     zone = 3;
                 }
-                
+
                 telemetry.addData("Zone", zone);
             } /* code below here is added by derek, attempt/pseudo at using the roadrunner and having the bot
             move around as meant to
@@ -178,8 +210,12 @@ public class redRight extends LinearOpMode {
                 Stick.setPosition(0);
                 sleep(1000);
                 drive.followTrajectory(t0);
-                drive.turn(Math.toRadians(4.7));
+                drive.turn(Math.toRadians(5));
                 Stick.setPosition(.8);
+                sleep(1000);
+                drive.followTrajectory(t3);
+                sleep(1000);
+                drive.followTrajectory(t4);
                 sleep(1000000);
             }
 
@@ -188,16 +224,22 @@ public class redRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t0);
                 Stick.setPosition(.8);
+                drive.followTrajectory(t1);
+                sleep(1000);
+                drive.followTrajectory(t2);
                 sleep(1000000000);
 
 
-                }
+            }
             if (zone == 3) {
                 Stick.setPosition(0);
                 sleep(1000);
-                drive.followTrajectory(t0);
-                drive.turn(Math.toRadians(-4.7));
+                drive.followTrajectory(t7);
+                drive.turn(Math.toRadians(-5.4));
                 Stick.setPosition(.8);
+                sleep(1000);
+                drive.followTrajectory(t5);
+                drive.followTrajectory(t6);
                 sleep(1000000);
             }
 
