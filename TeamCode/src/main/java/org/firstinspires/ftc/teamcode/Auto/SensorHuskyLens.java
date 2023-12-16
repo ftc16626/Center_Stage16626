@@ -121,7 +121,7 @@ public class SensorHuskyLens extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
-        //  Zone 1
+        //  Zone 2
         Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
                 .forward(2.5)
                 .build();
@@ -134,6 +134,23 @@ public class SensorHuskyLens extends LinearOpMode {
                 .strafeLeft(8)
                 .build();
 
+        //Zone 1
+        Trajectory t3 = drive.trajectoryBuilder(t2.end())
+                .strafeLeft(2.3)
+                .build();
+
+        Trajectory t4 = drive.trajectoryBuilder(t3.end())
+                .forward(8)
+                .build();
+
+        //Zone 3
+        Trajectory t5 = drive.trajectoryBuilder(t4.end())
+                .strafeRight(2.3)
+                .build();
+
+        Trajectory t6 = drive.trajectoryBuilder(t5.end())
+                .back(8)
+                .build();
 
         waitForStart();
 
@@ -192,6 +209,10 @@ public class SensorHuskyLens extends LinearOpMode {
                 drive.followTrajectory(t0);
                 drive.turn(Math.toRadians(4.7));
                 Stick.setPosition(.8);
+                sleep(1000);
+                drive.followTrajectory(t3);
+                sleep(1000);
+                drive.followTrajectory(t4);
                 sleep(1000000);
             }
 
@@ -214,6 +235,9 @@ public class SensorHuskyLens extends LinearOpMode {
                 drive.turn(Math.toRadians(-4.7));
                 Stick.setPosition(.8);
                 sleep(1000000);
+                drive.followTrajectory(t5);
+                sleep(100000);
+                drive.followTrajectory(t6);
             }
 
             telemetry.update();
