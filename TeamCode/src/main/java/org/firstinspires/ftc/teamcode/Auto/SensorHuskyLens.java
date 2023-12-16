@@ -41,6 +41,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -66,6 +68,7 @@ import java.util.concurrent.TimeUnit;
 
 public class SensorHuskyLens extends LinearOpMode {
 
+    public Servo Stick;
     private final int READ_PERIOD = 1;
 
     private HuskyLens huskyLens;
@@ -74,7 +77,7 @@ public class SensorHuskyLens extends LinearOpMode {
     public void runOpMode()
     {
         huskyLens = hardwareMap.get(HuskyLens.class, "HuskyLens");
-
+        Stick = (Servo) hardwareMap.get("Stick");
         /*
          * This sample rate limits the reads solely to allow a user time to observe
          * what is happening on the Driver Station telemetry.  Typical applications
@@ -120,7 +123,7 @@ public class SensorHuskyLens extends LinearOpMode {
 
         //  Zone 1
         Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
-                .forward(5)
+                .forward(2.5)
                 .build();
 
         waitForStart();
@@ -153,7 +156,7 @@ public class SensorHuskyLens extends LinearOpMode {
 
             // The following 6 lines of code took like 8 days to get working 
             
-            HuskyLens.Block[] blocks = huskyLens.blocks();
+            Block[] blocks = huskyLens.blocks();
             telemetry.addData("Block count", blocks.length);
             telemetry.addData("Blocks to string", blocks.toString());
             for (int i = 0; i < blocks.length; i++) {
@@ -172,8 +175,14 @@ public class SensorHuskyLens extends LinearOpMode {
             } /* code below here is added by derek, attempt/pseudo at using the roadrunner and having the bot
             move around as meant to
             */
+
+
+
             if (zone == 2) {
+                Stick.setPosition(-1);
                 drive.followTrajectory(t0);
+                Stick.setPosition(1);
+
             }
 
             telemetry.update();
