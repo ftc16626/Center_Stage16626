@@ -84,7 +84,6 @@ public class derivedTeleop extends LinearOpMode {
             // Map the joystick value to the servo position range (adjust min and max as needed)
             double servoPosition = yValue;
             // Set the servo position
-            ClawR.setPosition(ClawR.getPosition() + (yValue / 400)); //DEREK LOOK AT THIS -ARI
             //i dont like the sounds the servo makes but it works kinda -malachi
 
             int rightBumperY = 1; //Adjust these as necessary. If you want it go go faster, increase it
