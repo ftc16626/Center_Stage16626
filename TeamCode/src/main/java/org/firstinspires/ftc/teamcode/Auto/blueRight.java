@@ -38,6 +38,7 @@ import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.hardware.dfrobot.HuskyLens.Block;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
@@ -66,7 +67,12 @@ public class blueRight extends LinearOpMode {
 
     public Servo Stick;
     private final int READ_PERIOD = 1;
+    //Claw part of arm
+    public Servo ClawR; //Rotates Claw
+    public Servo ClawP;
 
+    //Arm Motors
+    public DcMotor armMotor;
     private HuskyLens huskyLens;
 
     @Override
@@ -74,6 +80,13 @@ public class blueRight extends LinearOpMode {
     {
         huskyLens = hardwareMap.get(HuskyLens.class, "HuskyLens");
         Stick = hardwareMap.servo.get("Stick");
+        ClawR = hardwareMap.servo.get("ClawR"); //For rotation
+        ClawR.setPosition(1);
+        ClawP = hardwareMap.servo.get("ClawP"); //For pinching
+        ClawP.setPosition(1);
+
+        //Arm
+        DcMotor armMotor = hardwareMap.dcMotor.get("RAMotor");
         /*
          * This sample rate limits the reads solely to allow a user time to observe
          * what is happening on the Driver Station telemetry.  Typical applications
@@ -119,9 +132,15 @@ public class blueRight extends LinearOpMode {
 
         //  Zone 1
         Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
-                .forward(2.3)
+                .forward(1)
                 .build();
 
+        Trajectory t1 = drive.trajectoryBuilder(new Pose2d())
+                .forward(1)
+                .build();
+        Trajectory t2 = drive.trajectoryBuilder(new Pose2d())
+                .forward(5)
+                .build();
 
         waitForStart();
 
@@ -178,8 +197,22 @@ public class blueRight extends LinearOpMode {
                 Stick.setPosition(0);
                 sleep(1000);
                 drive.followTrajectory(t0);
-                drive.turn(Math.toRadians(4.7));
+                sleep(1000);
+                drive.turn(Math.toRadians(5.5));
+                sleep(1000);
                 Stick.setPosition(.8);
+                sleep(1000);
+                drive.turn(Math.toRadians(-5.5));
+                sleep(1000);
+                drive.followTrajectory(t1);
+                sleep(1000);
+                drive.turn(Math.toRadians(8));
+                sleep(1000);
+                ClawR.setPosition(-1.5);
+                sleep(1000);
+                drive.followTrajectory(t2);
+                sleep(1000);
+
                 sleep(1000000);
             }
 
