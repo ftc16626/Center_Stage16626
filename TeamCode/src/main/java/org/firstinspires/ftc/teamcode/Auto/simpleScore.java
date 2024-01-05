@@ -119,7 +119,7 @@ public class simpleScore extends LinearOpMode {
 
         //  Zone 2
         Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
-                .forward(2.2)
+                .forward(1)
                 .build();
 
 
@@ -223,7 +223,7 @@ public class simpleScore extends LinearOpMode {
             if (zone == 3) {
                 Stick.setPosition(0);
                 sleep(1000);
-                drive.followTrajectory(t7);
+                drive.followTrajectory(t0);
                 drive.turn(Math.toRadians(-5.4));
                 Stick.setPosition(.8);
                 sleep(100000000);
