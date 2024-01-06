@@ -204,11 +204,11 @@ public class simpleScore extends LinearOpMode {
             */
 
             if (zone == 1) {
-                Stick.setPosition(.8);
+                Stick.setPosition(.2);
                 sleep(1000);
                 drive.followTrajectory(t0);
-                drive.turn(Math.toRadians(5));
-                Stick.setPosition(0);
+                drive.turn(Math.toRadians(5.4));
+                Stick.setPosition(1);
                 sleep(1000000000);
             }
 
@@ -221,11 +221,11 @@ public class simpleScore extends LinearOpMode {
                 }
 
             if (zone == 3) {
-                Stick.setPosition(.8);
+                Stick.setPosition(.2);
                 sleep(1000);
                 drive.followTrajectory(t0);
                 drive.turn(Math.toRadians(-5.4));
-                Stick.setPosition(0);
+                Stick.setPosition(1);
                 sleep(100000000);
             }
 
