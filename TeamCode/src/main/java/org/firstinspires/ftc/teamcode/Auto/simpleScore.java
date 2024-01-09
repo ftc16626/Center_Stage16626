@@ -207,7 +207,7 @@ public class simpleScore extends LinearOpMode {
                 Stick.setPosition(.2);
                 sleep(1000);
                 drive.followTrajectory(t0);
-                drive.turn(Math.toRadians(5.4));
+                drive.turn(Math.toRadians(6.5));
                 Stick.setPosition(1);
                 sleep(1000000000);
             }
