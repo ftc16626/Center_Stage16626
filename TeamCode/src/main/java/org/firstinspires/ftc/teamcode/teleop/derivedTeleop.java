@@ -80,19 +80,13 @@ public class derivedTeleop extends LinearOpMode {
             double RAMotorPower = rightStickY;
             RAMotor.setPower(RAMotorPower);
 
-            double yValue = -gamepad2.left_stick_y; // Negate the value if the servo moves in the opposite direction
+            double yValue = -gamepad2.left_stick_y; // Negative because of direction of rotation
             // Map the joystick value to the servo position range (adjust min and max as needed)
             double servoPosition = yValue;
-            // Set the servo position
-            ClawR.setPosition(ClawR.getPosition() + (yValue / 400)); //DEREK LOOK AT THIS -ARI
-            //i dont like the sounds the servo makes but it works kinda -malachi
+            ClawR.setPosition(ClawR.getPosition() + (yValue / 400));
+            // This rotates our claw mechanism
 
-            int rightBumperY = 1; //Adjust these as necessary. If you want it go go faster, increase it
-            int leftBumperY = 1;
-            //int LAMotorPower = 0;
-
-            //This controls both arm motors at the same time. Make sure both arms are at zero or its going to be walnky.
-            if(gamepad2.left_bumper == true){
+            if(gamepad2.left_bumper == true){ //This controls both arm motors at the same time.
                 RAMotor.setPower(-1);
                 LAMotor.setPower(-1);
             }
@@ -102,6 +96,7 @@ public class derivedTeleop extends LinearOpMode {
             }
             if (gamepad2.left_bumper == false && gamepad2.right_bumper == false) {
                 LAMotor.setPower(0);
+                RAMotor.setPower(0);
             }
 
             //Rotation of claw
