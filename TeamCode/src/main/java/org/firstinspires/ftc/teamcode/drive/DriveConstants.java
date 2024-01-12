@@ -26,7 +26,7 @@ public class DriveConstants {
 
     /*
      * Set RUN_USING_ENCODER to true to enable built-in hub velocity control using drive encoders.
-     * Set this flag to false if drive encoders are not present and an alternative localization
+     * Set this flag t o false if drive encoders are not present and an alternative localization
      * method is in use (e.g., tracking wheels).
      *
      * If using the built-in motor velocity PID, update MOTOR_VELO_PID with the tuned coefficients
