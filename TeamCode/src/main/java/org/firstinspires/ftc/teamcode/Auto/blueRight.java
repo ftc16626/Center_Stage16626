@@ -130,20 +130,19 @@ public class blueRight extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
-        //  Trajectories
         Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
-                .forward(30)
+                .forward(28)
                 .build();
-        Trajectory t1 = drive.trajectoryBuilder(new Pose2d())
-                .back(15)
+        Trajectory t1 = drive.trajectoryBuilder(t0.end())
+                .back(23)
                 .build();
-        Trajectory t2 = drive.trajectoryBuilder(new Pose2d())
-                .strafeRight(19)
+        Trajectory t2 = drive.trajectoryBuilder(t1.end())
+                .strafeRight(20)
                 .build();
-        Trajectory t3 = drive.trajectoryBuilder(new Pose2d())
-                .forward(41)
+        Trajectory t3 = drive.trajectoryBuilder(t2.end())
+                .forward(45)
                 .build();
-        Trajectory t4 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory t4 = drive.trajectoryBuilder(t3.end())
                 .strafeLeft(15)
                 .build();
         //turn to face toward backdrop
