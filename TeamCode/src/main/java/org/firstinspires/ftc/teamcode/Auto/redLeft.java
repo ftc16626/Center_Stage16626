@@ -125,10 +125,10 @@ public class redLeft extends LinearOpMode {
 
         //  Trajectories
         Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
-                .forward(30)
+                .forward(28)
                 .build();
-        Trajectory t1 = drive.trajectoryBuilder(new Pose2d())
-                .back(15)
+        Trajectory t1 = drive.trajectoryBuilder(new Pose2d(),true)
+                .forward(15)
                 .build();
         Trajectory t2 = drive.trajectoryBuilder(new Pose2d())
                 .strafeLeft(19)
