@@ -65,6 +65,8 @@ import java.util.concurrent.TimeUnit;
 public class redLeft extends LinearOpMode {
 
     public Servo Stick;
+    public Servo ClawR; //Rotates Claw
+    public Servo ClawP;
     private final int READ_PERIOD = 1;
 
     private HuskyLens huskyLens;
@@ -74,6 +76,10 @@ public class redLeft extends LinearOpMode {
     {
         huskyLens = hardwareMap.get(HuskyLens.class, "HuskyLens");
         Stick = hardwareMap.servo.get("Stick");
+        ClawR = hardwareMap.servo.get("ClawR"); //For rotation
+        ClawR.setPosition(1);
+        ClawP = hardwareMap.servo.get("ClawP"); //For pinching
+        ClawP.setPosition(1);
         /*
          * This sample rate limits the reads solely to allow a user time to observe
          * what is happening on the Driver Station telemetry.  Typical applications
@@ -117,10 +123,27 @@ public class redLeft extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
-        //  Zone 1
+        //  Trajectories
         Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
-                .forward(2.5)
+                .forward(30)
                 .build();
+        Trajectory t1 = drive.trajectoryBuilder(new Pose2d())
+                .back(15)
+                .build();
+        Trajectory t2 = drive.trajectoryBuilder(new Pose2d())
+                .strafeLeft(19)
+                .build();
+        Trajectory t3 = drive.trajectoryBuilder(new Pose2d())
+                .forward(41)
+                .build();
+        Trajectory t4 = drive.trajectoryBuilder(new Pose2d())
+                .strafeRight(15)
+                .build();
+        //turn to face toward backdrop
+        Trajectory t5 = drive.trajectoryBuilder(new Pose2d())
+                .forward(88)
+                .build();
+        //have 3 different strafe rights, for different zones it will place for scoring
 
 
         waitForStart();
@@ -178,8 +201,29 @@ public class redLeft extends LinearOpMode {
                 Stick.setPosition(0);
                 sleep(1000);
                 drive.followTrajectory(t0);
-                drive.turn(Math.toRadians(4.7));
+                sleep(1000);
+                drive.turn(Math.toDegrees(-90));
+                sleep(1000);
                 Stick.setPosition(.8);
+                sleep(1000);
+                drive.turn(Math.toDegrees(90));
+                sleep(1000);
+                drive.followTrajectory(t1);
+                sleep(1000);
+                drive.followTrajectory(t2);
+                sleep(1000);
+                drive.followTrajectory(t3);
+                sleep(1000);
+                drive.followTrajectory(t4);
+                sleep(1000);
+                drive.turn(Math.toDegrees(-90));
+                sleep(1000);
+                ClawR.setPosition(-1.5); //will need to do this to go under middle
+                sleep(1000);
+                drive.followTrajectory(t5);
+                sleep(1000);
+                //this will then have t6
+                // code for actuating arm/clawP
                 sleep(1000000);
             }
 
@@ -187,7 +231,24 @@ public class redLeft extends LinearOpMode {
                 Stick.setPosition(0);
                 sleep(1000);
                 drive.followTrajectory(t0);
+                sleep(1000);
                 Stick.setPosition(.8);
+                sleep(1000);
+                drive.followTrajectory(t1);
+                sleep(1000);
+                drive.followTrajectory(t2);
+                sleep(1000);
+                drive.followTrajectory(t3);
+                sleep(1000);
+                drive.followTrajectory(t4);
+                sleep(1000);
+                drive.turn(Math.toDegrees(-90));
+                sleep(1000);
+                ClawR.setPosition(-1.5); //will need to do this to go under middle
+                sleep(1000);
+                drive.followTrajectory(t5);
+                sleep(1000);
+                //t7 and arm/clawP code
                 sleep(1000000000);
 
 
@@ -196,8 +257,28 @@ public class redLeft extends LinearOpMode {
                 Stick.setPosition(0);
                 sleep(1000);
                 drive.followTrajectory(t0);
-                drive.turn(Math.toRadians(-4.7));
+                sleep(1000);
+                drive.turn(Math.toDegrees(90));
+                sleep(1000);
                 Stick.setPosition(.8);
+                sleep(1000);
+                drive.turn(Math.toDegrees(-90));
+                sleep(1000);
+                drive.followTrajectory(t1);
+                sleep(1000);
+                drive.followTrajectory(t2);
+                sleep(1000);
+                drive.followTrajectory(t3);
+                sleep(1000);
+                drive.followTrajectory(t4);
+                sleep(1000);
+                drive.turn(Math.toDegrees(-90));
+                sleep(1000);
+                ClawR.setPosition(-1.5); //will need to do this to go under middle
+                sleep(1000);
+                drive.followTrajectory(t5);
+                sleep(1000);
+                //t8 and arm/clawP code
                 sleep(1000000);
             }
 
