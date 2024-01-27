@@ -136,15 +136,15 @@ public class redLeft extends LinearOpMode {
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
                 .forward(45)
                 .build();
-        Trajectory t4 = drive.trajectoryBuilder(t3.end().plus(new Pose2d(0, 0, Math.toRadians(-90))))
+        Trajectory t4 = drive.trajectoryBuilder(t3.end())
                 .strafeRight(15)
                 .build();
         //turn to face toward backdrop
 
         Trajectory t5 = drive.trajectoryBuilder(t4.end())
-                .forward(88)
+                .strafeRight(88)
                 .build();
-
+        //zone 1 traj
         //have 3 different strafe rights, for different zones it will place for scoring
 
 
@@ -243,8 +243,6 @@ public class redLeft extends LinearOpMode {
                 drive.followTrajectory(t3);
                 sleep(1000);
                 drive.followTrajectory(t4);
-                sleep(1000);
-                drive.turn(Math.toRadians(-90));
                 sleep(1000);
                 ClawR.setPosition(-5); //will need to do this to go under middle
                 sleep(1000);

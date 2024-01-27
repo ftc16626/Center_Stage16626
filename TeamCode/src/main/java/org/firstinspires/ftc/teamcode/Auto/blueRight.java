@@ -142,7 +142,7 @@ public class blueRight extends LinearOpMode {
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
                 .forward(45)
                 .build();
-        Trajectory t4 = drive.trajectoryBuilder(t3.end().plus(new Pose2d(0, 0, Math.toRadians(90))))
+        Trajectory t4 = drive.trajectoryBuilder(t3.end())
                 .strafeLeft(15)
                 .build();
         //turn to face toward backdrop
