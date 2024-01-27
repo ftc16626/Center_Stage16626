@@ -142,11 +142,11 @@ public class blueRight extends LinearOpMode {
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
                 .forward(45)
                 .build();
-        Trajectory t4 = drive.trajectoryBuilder(t3.end())
+        Trajectory t4 = drive.trajectoryBuilder(t3.end().plus(new Pose2d(0, 0, Math.toRadians(90))))
                 .strafeLeft(15)
                 .build();
         //turn to face toward backdrop
-        Trajectory t5 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory t5 = drive.trajectoryBuilder(t4.end())
                 .forward(88)
                 .build();
         //have 3 different strafe lefts, for different zones it will place for scoring
@@ -221,7 +221,7 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t4);
                 sleep(1000);
-                drive.turn(Math.toDegrees(-90));
+                //drive.turn(Math.toDegrees(-90));
                 sleep(1000);
                 ClawR.setPosition(-1.5); //will need to do this to go under middle
                 sleep(1000);

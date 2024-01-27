@@ -136,7 +136,7 @@ public class redLeft extends LinearOpMode {
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
                 .forward(45)
                 .build();
-        Trajectory t4 = drive.trajectoryBuilder(t3.end())
+        Trajectory t4 = drive.trajectoryBuilder(t3.end().plus(new Pose2d(0, 0, Math.toRadians(-90))))
                 .strafeRight(15)
                 .build();
         //turn to face toward backdrop
@@ -204,11 +204,11 @@ public class redLeft extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t0);
                 sleep(1000);
-                drive.turn(Math.toDegrees(270));
+                drive.turn(Math.toRadians(90));
                 sleep(1000);
                 Stick.setPosition(.8);
                 sleep(1000);
-                drive.turn(Math.toDegrees(90));
+                drive.turn(Math.toRadians(-90));
                 sleep(1000);
                 drive.followTrajectory(t1);
                 sleep(1000);
@@ -218,9 +218,9 @@ public class redLeft extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t4);
                 sleep(1000);
-                drive.turn(Math.toDegrees(-90));
+                drive.turn(Math.toRadians(-90));
                 sleep(1000);
-                ClawR.setPosition(-1.5); //will need to do this to go under middle
+                ClawR.setPosition(-5); //will need to do this to go under middle
                 sleep(1000);
                 drive.followTrajectory(t5);
                 sleep(1000);
@@ -260,11 +260,11 @@ public class redLeft extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t0);
                 sleep(1000);
-                drive.turn(Math.toDegrees(90));
+                drive.turn(Math.toRadians(-90));
                 sleep(1000);
                 Stick.setPosition(.8);
                 sleep(1000);
-                drive.turn(Math.toDegrees(-90));
+                drive.turn(Math.toRadians(90));
                 sleep(1000);
                 drive.followTrajectory(t1);
                 sleep(1000);
@@ -274,9 +274,9 @@ public class redLeft extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t4);
                 sleep(1000);
-                drive.turn(Math.toDegrees(-90));
+                drive.turn(Math.toRadians(-90));
                 sleep(1000);
-                ClawR.setPosition(-1.5); //will need to do this to go under middle
+                ClawR.setPosition(-5); //will need to do this to go under middle
                 sleep(1000);
                 drive.followTrajectory(t5);
                 sleep(1000);
