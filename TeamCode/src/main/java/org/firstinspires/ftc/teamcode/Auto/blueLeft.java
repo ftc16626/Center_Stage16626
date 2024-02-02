@@ -61,9 +61,9 @@ import java.util.concurrent.TimeUnit;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@Autonomous(name = "blueRight", group = "Sensor")
+@Autonomous(name = "blueLeft", group = "Sensor")
 
-public class blueRight extends LinearOpMode {
+public class blueLeft extends LinearOpMode {
 
     public Servo Stick;
     private final int READ_PERIOD = 1;
@@ -140,21 +140,9 @@ public class blueRight extends LinearOpMode {
                 .back(23)
                 .build();
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .strafeRight(20)
+                .strafeLeft(30)
                 .build();
-        Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .forward(47)
-                .build();
-        Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                .strafeLeft(15)
-                .build();
-        //turn to face toward backdrop
-        Trajectory t5 = drive.trajectoryBuilder(t4.end())
-                .strafeLeft(88)
-                .build();
-        Trajectory t6 = drive.trajectoryBuilder(t5.end())
-                .back(12)
-                .build();
+
         //have 3 different strafe lefts, for different zones it will place for scoring
 
         waitForStart();
@@ -223,15 +211,12 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t2);
                 sleep(1000);
-                drive.followTrajectory(t3);
-                sleep(1000);
-                drive.followTrajectory(t4);
                 sleep(1000);
                 ClawR.setPosition(.38); //will need to do this to go under middle
                 sleep(1000);
-                drive.followTrajectory(t5);
+                ClawP.setPosition(0);
                 sleep(1000);
-                drive.followTrajectory(t6);
+                ClawR.setPosition(1);
                 //this will then have t6
                 // code for actuating arm/clawP
                 sleep(1000000);
@@ -248,16 +233,13 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t2);
                 sleep(1000);
-                drive.followTrajectory(t3);
+                ClawR.setPosition(.38);
                 sleep(1000);
-                drive.followTrajectory(t4);
+                ClawP.setPosition(0);
                 sleep(1000);
-                ClawR.setPosition(.38); //will need to do this to go under middle
+                ClawR.setPosition(1);
+                //will need to do this to go under middle
                 // drive.turn(Math.toRadians(-90));
-                sleep(1000);
-                drive.followTrajectory(t5);
-                sleep(1000);
-                drive.followTrajectory(t6);
                 //t7 and arm/clawP code
                 sleep(1000000000);
 
@@ -268,25 +250,21 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t0);
                 sleep(1000);
-                drive.turn(Math.toRadians(-90));
+                drive.turn(Math.toRadians(90));
                 sleep(1000);
                 Stick.setPosition(.8);
                 sleep(1000);
-                drive.turn(Math.toRadians(90));
+                drive.turn(Math.toRadians(-90));
                 sleep(1000);
                 drive.followTrajectory(t1);
                 sleep(1000);
                 drive.followTrajectory(t2);
                 sleep(1000);
-                drive.followTrajectory(t3);
-                sleep(1000);
-                drive.followTrajectory(t4);
-                sleep(1000);
                 ClawR.setPosition(.38); //will need to do this to go under middle
                 sleep(1000);
-                drive.followTrajectory(t5);
+                ClawP.setPosition(0);
                 sleep(1000);
-                drive.followTrajectory(t6); //t8 and arm/clawP code
+                ClawR.setPosition(1);
                 sleep(1000000);
             }
 

@@ -42,6 +42,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
@@ -70,6 +71,8 @@ public class redRight extends LinearOpMode {
 
     public Servo Stick;
     private final int READ_PERIOD = 1;
+    public Servo ClawR; //Rotates Claw
+    public Servo ClawP;
 
     private HuskyLens huskyLens;
 
@@ -78,6 +81,13 @@ public class redRight extends LinearOpMode {
     {
         huskyLens = hardwareMap.get(HuskyLens.class, "HuskyLens");
         Stick = hardwareMap.servo.get("Stick");
+        ClawR = hardwareMap.servo.get("ClawR"); //For rotation
+        ClawR.setPosition(1);
+        ClawP = hardwareMap.servo.get("ClawP"); //For pinching
+        ClawP.setPosition(1);
+
+        //Arm
+        DcMotor armMotor = hardwareMap.dcMotor.get("RAMotor");
         /*
          * This sample rate limits the reads solely to allow a user time to observe
          * what is happening on the Driver Station telemetry.  Typical applications
@@ -121,39 +131,20 @@ public class redRight extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
-        //  Zone 2
-        Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
-                .forward(2.2)
+        Pose2d startPose = new Pose2d();
+        drive.setPoseEstimate(startPose);
+        //  Trajectories
+        Trajectory t0 = drive.trajectoryBuilder(startPose)
+                .forward(28)
                 .build();
-
         Trajectory t1 = drive.trajectoryBuilder(t0.end())
-                .back(2.3)
+                .back(23)
                 .build();
-
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .strafeRight(8)
+                .strafeRight(30)
                 .build();
 
-        //Zone 1
-        Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .strafeLeft(3.8)
-                .build();
-
-        Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                .back(5)
-                .build();
-
-        //Zone 3
-        Trajectory t5 = drive.trajectoryBuilder(t4.end())
-                .strafeRight(3.5)
-                .build();
-
-        Trajectory t6 = drive.trajectoryBuilder(t5.end())
-                .forward(5)
-                .build();
-        Trajectory t7 = drive.trajectoryBuilder(new Pose2d())
-                .forward(2.7)
-                .build();
+        //have 3 different strafe lefts, for different zones it will place for scoring
 
         waitForStart();
 
@@ -210,12 +201,25 @@ public class redRight extends LinearOpMode {
                 Stick.setPosition(0);
                 sleep(1000);
                 drive.followTrajectory(t0);
-                drive.turn(Math.toRadians(5));
+                sleep(1000);
+                drive.turn(Math.toRadians(90));
+                sleep(1000);
                 Stick.setPosition(.8);
                 sleep(1000);
-                drive.followTrajectory(t3);
+                drive.turn(Math.toRadians(-90));
                 sleep(1000);
-                drive.followTrajectory(t4);
+                drive.followTrajectory(t1);
+                sleep(1000);
+                drive.followTrajectory(t2);
+                sleep(1000);
+                sleep(1000);
+                ClawR.setPosition(.38); //will need to do this to go under middle
+                sleep(1000);
+                ClawP.setPosition(0);
+                sleep(1000);
+                ClawR.setPosition(1);
+                //this will then have t6
+                // code for actuating arm/clawP
                 sleep(1000000);
             }
 
@@ -223,10 +227,21 @@ public class redRight extends LinearOpMode {
                 Stick.setPosition(0);
                 sleep(1000);
                 drive.followTrajectory(t0);
+                sleep(1000);
                 Stick.setPosition(.8);
+                sleep(1000);
                 drive.followTrajectory(t1);
                 sleep(1000);
                 drive.followTrajectory(t2);
+                sleep(1000);
+                ClawR.setPosition(.38);
+                sleep(1000);
+                ClawP.setPosition(0);
+                sleep(1000);
+                ClawR.setPosition(1);
+                //will need to do this to go under middle
+                // drive.turn(Math.toRadians(-90));
+                //t7 and arm/clawP code
                 sleep(1000000000);
 
 
@@ -234,12 +249,23 @@ public class redRight extends LinearOpMode {
             if (zone == 3) {
                 Stick.setPosition(0);
                 sleep(1000);
-                drive.followTrajectory(t7);
-                drive.turn(Math.toRadians(-5.4));
+                drive.followTrajectory(t0);
+                sleep(1000);
+                drive.turn(Math.toRadians(90));
+                sleep(1000);
                 Stick.setPosition(.8);
                 sleep(1000);
-                drive.followTrajectory(t5);
-                drive.followTrajectory(t6);
+                drive.turn(Math.toRadians(-90));
+                sleep(1000);
+                drive.followTrajectory(t1);
+                sleep(1000);
+                drive.followTrajectory(t2);
+                sleep(1000);
+                ClawR.setPosition(.38); //will need to do this to go under middle
+                sleep(1000);
+                ClawP.setPosition(0);
+                sleep(1000);
+                ClawR.setPosition(1);
                 sleep(1000000);
             }
 

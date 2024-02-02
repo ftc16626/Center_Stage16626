@@ -122,9 +122,10 @@ public class redLeft extends LinearOpMode {
         huskyLens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
-
+        Pose2d startPose = new Pose2d();
+        drive.setPoseEstimate(startPose);
         //  Trajectories
-        Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory t0 = drive.trajectoryBuilder(startPose)
                 .forward(28)
                 .build();
         Trajectory t1 = drive.trajectoryBuilder(t0.end())
@@ -134,19 +135,21 @@ public class redLeft extends LinearOpMode {
                 .strafeLeft(20)
                 .build();
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .forward(45)
+                .forward(47)
                 .build();
         Trajectory t4 = drive.trajectoryBuilder(t3.end())
                 .strafeRight(15)
                 .build();
         //turn to face toward backdrop
-
         Trajectory t5 = drive.trajectoryBuilder(t4.end())
-                .forward(88)
+                .strafeRight(87)
                 .build();
+        Trajectory t6 = drive.trajectoryBuilder(t5.end())
+                .back(12)
+                .build();
+
         //zone 1 traj
         //have 3 different strafe rights, for different zones it will place for scoring
-
 
         waitForStart();
 
@@ -220,10 +223,17 @@ public class redLeft extends LinearOpMode {
                 sleep(1000);
                 drive.turn(Math.toRadians(-90));
                 sleep(1000);
-                ClawR.setPosition(-5); //will need to do this to go under middle
+                ClawR.setPosition(.38); //will need to do this to go under middle
                 sleep(1000);
                 drive.followTrajectory(t5);
                 sleep(1000);
+                drive.followTrajectory(t6);
+                sleep(1000);
+                drive.turn(Math.toRadians(180));
+                sleep(1000);
+                ClawP.setPosition(0);
+                sleep(1000);
+                ClawR.setPosition(1);
                 //this will then have t6
                 // code for actuating arm/clawP
                 sleep(1000000);
@@ -244,11 +254,18 @@ public class redLeft extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t4);
                 sleep(1000);
-                ClawR.setPosition(-5); //will need to do this to go under middle
-                drive.turn(Math.toRadians(-90));
+                ClawR.setPosition(.38); //will need to do this to go under middle
+               // drive.turn(Math.toRadians(-90));
                 sleep(1000);
                 drive.followTrajectory(t5);
                 sleep(1000);
+                drive.followTrajectory(t6);
+                sleep(1000);
+                drive.turn(Math.toRadians(180));
+                sleep(1000);
+                ClawP.setPosition(0);
+                sleep(1000);
+                ClawR.setPosition(1);
                 //t7 and arm/clawP code
                 sleep(1000000000);
 
@@ -273,12 +290,17 @@ public class redLeft extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t4);
                 sleep(1000);
-                drive.turn(Math.toRadians(-90));
-                sleep(1000);
-                ClawR.setPosition(-5); //will need to do this to go under middle
+                ClawR.setPosition(.38); //will need to do this to go under middle
                 sleep(1000);
                 drive.followTrajectory(t5);
                 sleep(1000);
+                drive.followTrajectory(t6);
+                sleep(1000);
+                drive.turn(Math.toRadians(180));
+                sleep(1000);
+                ClawP.setPosition(0);
+                sleep(1000);
+                ClawR.setPosition(1);
                 //t8 and arm/clawP code
                 sleep(1000000);
             }
