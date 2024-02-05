@@ -53,7 +53,7 @@ import java.util.concurrent.TimeUnit;
  * detect a number of predefined objects and AprilTags in the 36h11 family, can
  * recognize colors, and can be trained to detect custom objects. See this website for
  * documentation: https://wiki.dfrobot.com/HUSKYLENS_V1.0_SKU_SEN0305_SEN0336
- * 
+ *
  * This sample illustrates how to detect AprilTags, but can be used to detect other types
  * of objects by changing the algorithm. It assumes that the HuskyLens is configured with
  * a name of "huskylens".
@@ -158,7 +158,7 @@ public class blueLeft extends LinearOpMode {
                 continue;
             }
             rateLimit.reset();
-            
+
             final int AREAONE = 105;
             final int AREATWO = 210;
             final int AREATHREE = 211;
@@ -174,15 +174,15 @@ public class blueLeft extends LinearOpMode {
              * Returns an empty array if no objects are seen.
              */
 
-            // The following 6 lines of code took like 8 days to get working 
-            
+            // The following 6 lines of code took like 8 days to get working
+
             Block[] blocks = huskyLens.blocks();
             telemetry.addData("Block count", blocks.length);
             telemetry.addData("Blocks to string", blocks.toString());
             for (int i = 0; i < blocks.length; i++) {
                 int blockX = blocks[i].x;
                 telemetry.addData("Block X", blockX);
-                
+
                 if (blockX <= AREAONE) {
                     zone = 1;
                 } else if (blockX <= AREATWO){
@@ -190,7 +190,7 @@ public class blueLeft extends LinearOpMode {
                 } else if (blockX >= AREATHREE){
                     zone = 3;
                 }
-                
+
                 telemetry.addData("Zone", zone);
             } /* code below here is added by derek, attempt/pseudo at using the roadrunner and having the bot
             move around as meant to
@@ -244,7 +244,7 @@ public class blueLeft extends LinearOpMode {
                 sleep(1000000000);
 
 
-                }
+            }
             if (zone == 3) {
                 Stick.setPosition(0);
                 sleep(1000);
