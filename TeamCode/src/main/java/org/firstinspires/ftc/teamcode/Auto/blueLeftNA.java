@@ -38,6 +38,7 @@ import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.hardware.dfrobot.HuskyLens.Block;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
@@ -52,7 +53,7 @@ import java.util.concurrent.TimeUnit;
  * detect a number of predefined objects and AprilTags in the 36h11 family, can
  * recognize colors, and can be trained to detect custom objects. See this website for
  * documentation: https://wiki.dfrobot.com/HUSKYLENS_V1.0_SKU_SEN0305_SEN0336
- *
+ * 
  * This sample illustrates how to detect AprilTags, but can be used to detect other types
  * of objects by changing the algorithm. It assumes that the HuskyLens is configured with
  * a name of "huskylens".
@@ -60,15 +61,18 @@ import java.util.concurrent.TimeUnit;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@Autonomous(name = "redLeft", group = "Sensor")
+@Autonomous(name = "blueLeft", group = "Sensor")
 
-public class redLeft extends LinearOpMode {
+public class blueLeftNA extends LinearOpMode {
 
     public Servo Stick;
+    private final int READ_PERIOD = 1;
+    //Claw part of arm
     public Servo ClawR; //Rotates Claw
     public Servo ClawP;
-    private final int READ_PERIOD = 1;
 
+    //Arm Motors
+    public DcMotor armMotor;
     private HuskyLens huskyLens;
 
     @Override
@@ -80,6 +84,9 @@ public class redLeft extends LinearOpMode {
         ClawR.setPosition(1);
         ClawP = hardwareMap.servo.get("ClawP"); //For pinching
         ClawP.setPosition(1);
+
+        //Arm
+        DcMotor armMotor = hardwareMap.dcMotor.get("RAMotor");
         /*
          * This sample rate limits the reads solely to allow a user time to observe
          * what is happening on the Driver Station telemetry.  Typical applications
@@ -122,6 +129,7 @@ public class redLeft extends LinearOpMode {
         huskyLens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
+
         Pose2d startPose = new Pose2d();
         drive.setPoseEstimate(startPose);
         //  Trajectories
@@ -132,24 +140,10 @@ public class redLeft extends LinearOpMode {
                 .back(23)
                 .build();
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .strafeLeft(20)
-                .build();
-        Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .forward(47)
-                .build();
-        Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                .strafeRight(15)
-                .build();
-        //turn to face toward backdrop
-        Trajectory t5 = drive.trajectoryBuilder(t4.end())
-                .strafeRight(87)
-                .build();
-        Trajectory t6 = drive.trajectoryBuilder(t5.end())
-                .back(12)
+                .strafeLeft(30)
                 .build();
 
-        //zone 1 traj
-        //have 3 different strafe rights, for different zones it will place for scoring
+        //have 3 different strafe lefts, for different zones it will place for scoring
 
         waitForStart();
 
@@ -164,7 +158,7 @@ public class redLeft extends LinearOpMode {
                 continue;
             }
             rateLimit.reset();
-
+            
             final int AREAONE = 105;
             final int AREATWO = 210;
             final int AREATHREE = 211;
@@ -180,15 +174,15 @@ public class redLeft extends LinearOpMode {
              * Returns an empty array if no objects are seen.
              */
 
-            // The following 6 lines of code took like 8 days to get working
-
+            // The following 6 lines of code took like 8 days to get working 
+            
             Block[] blocks = huskyLens.blocks();
             telemetry.addData("Block count", blocks.length);
             telemetry.addData("Blocks to string", blocks.toString());
             for (int i = 0; i < blocks.length; i++) {
                 int blockX = blocks[i].x;
                 telemetry.addData("Block X", blockX);
-
+                
                 if (blockX <= AREAONE) {
                     zone = 1;
                 } else if (blockX <= AREATWO){
@@ -196,7 +190,7 @@ public class redLeft extends LinearOpMode {
                 } else if (blockX >= AREATHREE){
                     zone = 3;
                 }
-
+                
                 telemetry.addData("Zone", zone);
             } /* code below here is added by derek, attempt/pseudo at using the roadrunner and having the bot
             move around as meant to
@@ -217,19 +211,8 @@ public class redLeft extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t2);
                 sleep(1000);
-                drive.followTrajectory(t3);
-                sleep(1000);
-                drive.followTrajectory(t4);
-                sleep(1000);
-                drive.turn(Math.toRadians(-90));
                 sleep(1000);
                 ClawR.setPosition(.38); //will need to do this to go under middle
-                sleep(1000);
-                drive.followTrajectory(t5);
-                sleep(1000);
-                drive.followTrajectory(t6);
-                sleep(1000);
-                drive.turn(Math.toRadians(180));
                 sleep(1000);
                 ClawP.setPosition(0);
                 sleep(1000);
@@ -250,58 +233,38 @@ public class redLeft extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t2);
                 sleep(1000);
-                drive.followTrajectory(t3);
-                sleep(1000);
-                drive.followTrajectory(t4);
-                sleep(1000);
-                ClawR.setPosition(.38); //will need to do this to go under middle
-                // drive.turn(Math.toRadians(-90));
-                sleep(1000);
-                drive.followTrajectory(t5);
-                sleep(1000);
-                drive.followTrajectory(t6);
-                sleep(1000);
-                drive.turn(Math.toRadians(180));
+                ClawR.setPosition(.38);
                 sleep(1000);
                 ClawP.setPosition(0);
                 sleep(1000);
                 ClawR.setPosition(1);
+                //will need to do this to go under middle
+                // drive.turn(Math.toRadians(-90));
                 //t7 and arm/clawP code
                 sleep(1000000000);
 
 
-            }
+                }
             if (zone == 3) {
                 Stick.setPosition(0);
                 sleep(1000);
                 drive.followTrajectory(t0);
                 sleep(1000);
-                drive.turn(Math.toRadians(-90));
+                drive.turn(Math.toRadians(90));
                 sleep(1000);
                 Stick.setPosition(.8);
                 sleep(1000);
-                drive.turn(Math.toRadians(90));
+                drive.turn(Math.toRadians(-90));
                 sleep(1000);
                 drive.followTrajectory(t1);
                 sleep(1000);
                 drive.followTrajectory(t2);
                 sleep(1000);
-                drive.followTrajectory(t3);
-                sleep(1000);
-                drive.followTrajectory(t4);
-                sleep(1000);
                 ClawR.setPosition(.38); //will need to do this to go under middle
-                sleep(1000);
-                drive.followTrajectory(t5);
-                sleep(1000);
-                drive.followTrajectory(t6);
-                sleep(1000);
-                drive.turn(Math.toRadians(180));
                 sleep(1000);
                 ClawP.setPosition(0);
                 sleep(1000);
                 ClawR.setPosition(1);
-                //t8 and arm/clawP code
                 sleep(1000000);
             }
 
