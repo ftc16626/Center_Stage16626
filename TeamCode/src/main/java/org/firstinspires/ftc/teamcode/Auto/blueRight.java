@@ -40,6 +40,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -63,7 +64,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Autonomous(name = "blueRight", group = "Sensor")
 
-public class blueRightNA extends LinearOpMode {
+public class blueRight extends LinearOpMode {
 
     public Servo Stick;
     private final int READ_PERIOD = 1;
@@ -130,10 +131,19 @@ public class blueRightNA extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
-        Pose2d startPose = new Pose2d();
-        drive.setPoseEstimate(startPose);
+        Pose2d startPose = new Pose2d(6.5, 9, Math.toRadians(90));
+
+       // drive.setPoseEstimate(startPose);
+
+        Trajectory t1 = drive.trajectoryBuilder(startPose)
+                .splineTo(new Vector2d(20, 9), Math.toRadians(45))
+                .build();
+
+        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+                .splineTo(new Vector2d(20, 9), Math.toRadians(45))
+                .build();
         //  Trajectories
-        Trajectory t0 = drive.trajectoryBuilder(startPose)
+      /*  Trajectory t0 = drive.trajectoryBuilder(startPose)
                 .forward(28)
                 .build();
         Trajectory t1 = drive.trajectoryBuilder(t0.end())
@@ -156,7 +166,7 @@ public class blueRightNA extends LinearOpMode {
                 .back(12)
                 .build();
         //have 3 different strafe lefts, for different zones it will place for scoring
-
+*/
         waitForStart();
 
         /*
@@ -207,6 +217,7 @@ public class blueRightNA extends LinearOpMode {
             } /* code below here is added by derek, attempt/pseudo at using the roadrunner and having the bot
             move around as meant to
             */
+            drive.setPoseEstimate(startPose);
 
             if (zone == 1) {
                 Stick.setPosition(0);
