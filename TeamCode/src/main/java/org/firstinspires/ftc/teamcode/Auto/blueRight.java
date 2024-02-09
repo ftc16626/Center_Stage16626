@@ -63,7 +63,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Autonomous(name = "blueRight", group = "Sensor")
 
-public class blueRight extends LinearOpMode {
+public class blueRightNA extends LinearOpMode {
 
     public Servo Stick;
     private final int READ_PERIOD = 1;
@@ -130,25 +130,30 @@ public class blueRight extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
+        Pose2d startPose = new Pose2d();
+        drive.setPoseEstimate(startPose);
         //  Trajectories
-        Trajectory t0 = drive.trajectoryBuilder(new Pose2d())
-                .forward(30)
+        Trajectory t0 = drive.trajectoryBuilder(startPose)
+                .forward(28)
                 .build();
-        Trajectory t1 = drive.trajectoryBuilder(new Pose2d())
-                .back(15)
+        Trajectory t1 = drive.trajectoryBuilder(t0.end())
+                .back(23)
                 .build();
-        Trajectory t2 = drive.trajectoryBuilder(new Pose2d())
-                .strafeRight(19)
+        Trajectory t2 = drive.trajectoryBuilder(t1.end())
+                .strafeRight(20)
                 .build();
-        Trajectory t3 = drive.trajectoryBuilder(new Pose2d())
-                .forward(41)
+        Trajectory t3 = drive.trajectoryBuilder(t2.end())
+                .forward(47)
                 .build();
-        Trajectory t4 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory t4 = drive.trajectoryBuilder(t3.end())
                 .strafeLeft(15)
                 .build();
         //turn to face toward backdrop
-        Trajectory t5 = drive.trajectoryBuilder(new Pose2d())
-                .forward(88)
+        Trajectory t5 = drive.trajectoryBuilder(t4.end())
+                .strafeLeft(88)
+                .build();
+        Trajectory t6 = drive.trajectoryBuilder(t5.end())
+                .back(12)
                 .build();
         //have 3 different strafe lefts, for different zones it will place for scoring
 
@@ -208,11 +213,11 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t0);
                 sleep(1000);
-                drive.turn(Math.toDegrees(-90));
+                drive.turn(Math.toRadians(90));
                 sleep(1000);
                 Stick.setPosition(.8);
                 sleep(1000);
-                drive.turn(Math.toDegrees(90));
+                drive.turn(Math.toRadians(-90));
                 sleep(1000);
                 drive.followTrajectory(t1);
                 sleep(1000);
@@ -222,14 +227,13 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t4);
                 sleep(1000);
-                drive.turn(Math.toDegrees(-90));
-                sleep(1000);
-                ClawR.setPosition(-1.5); //will need to do this to go under middle
+                ClawR.setPosition(.38); //will need to do this to go under middle
                 sleep(1000);
                 drive.followTrajectory(t5);
                 sleep(1000);
-                                            //this will then have t6
-                                            // code for actuating arm/clawP
+                drive.followTrajectory(t6);
+                //this will then have t6
+                // code for actuating arm/clawP
                 sleep(1000000);
             }
 
@@ -248,13 +252,13 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t4);
                 sleep(1000);
-                drive.turn(Math.toDegrees(-90));
-                sleep(1000);
-                ClawR.setPosition(-1.5); //will need to do this to go under middle
+                ClawR.setPosition(.38); //will need to do this to go under middle
+                // drive.turn(Math.toRadians(-90));
                 sleep(1000);
                 drive.followTrajectory(t5);
                 sleep(1000);
-                                        //t7 and arm/clawP code
+                drive.followTrajectory(t6);
+                //t7 and arm/clawP code
                 sleep(1000000000);
 
 
@@ -264,11 +268,11 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t0);
                 sleep(1000);
-                drive.turn(Math.toDegrees(90));
+                drive.turn(Math.toRadians(-90));
                 sleep(1000);
                 Stick.setPosition(.8);
                 sleep(1000);
-                drive.turn(Math.toDegrees(-90));
+                drive.turn(Math.toRadians(90));
                 sleep(1000);
                 drive.followTrajectory(t1);
                 sleep(1000);
@@ -278,13 +282,11 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t4);
                 sleep(1000);
-                drive.turn(Math.toDegrees(-90));
-                sleep(1000);
-                ClawR.setPosition(-1.5); //will need to do this to go under middle
+                ClawR.setPosition(.38); //will need to do this to go under middle
                 sleep(1000);
                 drive.followTrajectory(t5);
                 sleep(1000);
-                                        //t8 and arm/clawP code
+                drive.followTrajectory(t6); //t8 and arm/clawP code
                 sleep(1000000);
             }
 
