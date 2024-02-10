@@ -70,7 +70,6 @@ public class blueRight extends LinearOpMode {
     private final int READ_PERIOD = 1;
     //Claw part of arm
     public Servo ClawR; //Rotates Claw
-    public Servo ClawP;
 
     //Arm Motors
     public DcMotor armMotor;
@@ -83,8 +82,7 @@ public class blueRight extends LinearOpMode {
         Stick = hardwareMap.servo.get("Stick");
         ClawR = hardwareMap.servo.get("ClawR"); //For rotation
         ClawR.setPosition(1);
-        ClawP = hardwareMap.servo.get("ClawP"); //For pinching
-        ClawP.setPosition(1);
+
 
         //Arm
         DcMotor armMotor = hardwareMap.dcMotor.get("RAMotor");
@@ -131,17 +129,15 @@ public class blueRight extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
-        Pose2d startPose = new Pose2d(-32.5,-63.25);
+        Pose2d startPose = new Pose2d(-63.25,-32.5);
 
        // drive.setPoseEstimate(startPose);
 
         Trajectory t0 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(-32.5, 0), Math.toRadians(90))
-                .build();
+                .splineTo(new Vector2d(0,-32.5), Math.toRadians(0))
+                 .build();
 
-        Trajectory t1 = drive.trajectoryBuilder(t0.end())
-                .splineTo(new Vector2d(20, 9), Math.toRadians(45))
-                .build();
+
         //  Trajectories
       /*  Trajectory t0 = drive.trajectoryBuilder(startPose)
                 .forward(28)
@@ -236,7 +232,7 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 Stick.setPosition(.8);
                 sleep(1000);
-                drive.followTrajectory(t1);
+               // drive.followTrajectory(t1);
                 sleep(1000);
 
                 sleep(1000);
@@ -260,7 +256,7 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.turn(Math.toRadians(90));
                 sleep(1000);
-                drive.followTrajectory(t1);
+              //  drive.followTrajectory(t1);
                 sleep(1000);
 
                 sleep(1000000);
