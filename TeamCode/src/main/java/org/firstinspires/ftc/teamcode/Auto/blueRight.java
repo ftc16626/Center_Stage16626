@@ -131,15 +131,15 @@ public class blueRight extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
-        Pose2d startPose = new Pose2d(6.5, 9, Math.toRadians(90));
+        Pose2d startPose = new Pose2d(-32.5,-63.25);
 
        // drive.setPoseEstimate(startPose);
 
-        Trajectory t1 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(20, 9), Math.toRadians(45))
+        Trajectory t0 = drive.trajectoryBuilder(startPose)
+                .splineTo(new Vector2d(-32.5, 0), Math.toRadians(90))
                 .build();
 
-        Trajectory traj2 = drive.trajectoryBuilder(traj1.end())
+        Trajectory t1 = drive.trajectoryBuilder(t0.end())
                 .splineTo(new Vector2d(20, 9), Math.toRadians(45))
                 .build();
         //  Trajectories
@@ -220,32 +220,13 @@ public class blueRight extends LinearOpMode {
             drive.setPoseEstimate(startPose);
 
             if (zone == 1) {
-                Stick.setPosition(0);
+                //Stick.setPosition(0);
                 sleep(1000);
                 drive.followTrajectory(t0);
+
                 sleep(1000);
-                drive.turn(Math.toRadians(90));
-                sleep(1000);
-                Stick.setPosition(.8);
-                sleep(1000);
-                drive.turn(Math.toRadians(-90));
-                sleep(1000);
-                drive.followTrajectory(t1);
-                sleep(1000);
-                drive.followTrajectory(t2);
-                sleep(1000);
-                drive.followTrajectory(t3);
-                sleep(1000);
-                drive.followTrajectory(t4);
-                sleep(1000);
-                ClawR.setPosition(.38); //will need to do this to go under middle
-                sleep(1000);
-                drive.followTrajectory(t5);
-                sleep(1000);
-                drive.followTrajectory(t6);
-                //this will then have t6
-                // code for actuating arm/clawP
-                sleep(1000000);
+                //ClawR.setPosition(.38); //will need to do this to go under middle
+
             }
 
             if (zone == 2) {
@@ -257,18 +238,12 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t1);
                 sleep(1000);
-                drive.followTrajectory(t2);
-                sleep(1000);
-                drive.followTrajectory(t3);
-                sleep(1000);
-                drive.followTrajectory(t4);
+
                 sleep(1000);
                 ClawR.setPosition(.38); //will need to do this to go under middle
                 // drive.turn(Math.toRadians(-90));
                 sleep(1000);
-                drive.followTrajectory(t5);
-                sleep(1000);
-                drive.followTrajectory(t6);
+
                 //t7 and arm/clawP code
                 sleep(1000000000);
 
@@ -287,17 +262,7 @@ public class blueRight extends LinearOpMode {
                 sleep(1000);
                 drive.followTrajectory(t1);
                 sleep(1000);
-                drive.followTrajectory(t2);
-                sleep(1000);
-                drive.followTrajectory(t3);
-                sleep(1000);
-                drive.followTrajectory(t4);
-                sleep(1000);
-                ClawR.setPosition(.38); //will need to do this to go under middle
-                sleep(1000);
-                drive.followTrajectory(t5);
-                sleep(1000);
-                drive.followTrajectory(t6); //t8 and arm/clawP code
+
                 sleep(1000000);
             }
 

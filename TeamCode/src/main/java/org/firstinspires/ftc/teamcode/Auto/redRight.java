@@ -63,7 +63,7 @@ import java.util.concurrent.TimeUnit;
  */
 @Autonomous(name = "redRight", group = "Sensor")
 
-public class redRightNA extends LinearOpMode {
+public class redRight extends LinearOpMode {
 
     public Servo Stick;
     private final int READ_PERIOD = 1;

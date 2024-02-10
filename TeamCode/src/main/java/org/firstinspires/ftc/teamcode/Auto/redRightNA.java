@@ -61,14 +61,14 @@ import java.util.concurrent.TimeUnit;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
-@Autonomous(name = "redRight", group = "Sensor")
+@Autonomous(name = "redRightNA", group = "Sensor")
 
 public class redRightNA extends LinearOpMode {
 
     public Servo Stick;
     private final int READ_PERIOD = 1;
     public Servo ClawR; //Rotates Claw
-    public Servo ClawP;
+    //public Servo ClawP;
 
     private HuskyLens huskyLens;
 
@@ -79,8 +79,8 @@ public class redRightNA extends LinearOpMode {
         Stick = hardwareMap.servo.get("Stick");
         ClawR = hardwareMap.servo.get("ClawR"); //For rotation
         ClawR.setPosition(1);
-        ClawP = hardwareMap.servo.get("ClawP"); //For pinching
-        ClawP.setPosition(1);
+        //ClawP = hardwareMap.servo.get("ClawP"); //For pinching
+        //ClawP.setPosition(1);
 
         //Arm
         DcMotor armMotor = hardwareMap.dcMotor.get("RAMotor");
@@ -211,7 +211,7 @@ public class redRightNA extends LinearOpMode {
                 sleep(1000);
                 ClawR.setPosition(.38); //will need to do this to go under middle
                 sleep(1000);
-                ClawP.setPosition(0);
+                //ClawP.setPosition(0);
                 sleep(1000);
                 ClawR.setPosition(1);
                 //this will then have t6
@@ -232,7 +232,7 @@ public class redRightNA extends LinearOpMode {
                 sleep(1000);
                 ClawR.setPosition(.38);
                 sleep(1000);
-                ClawP.setPosition(0);
+                //ClawP.setPosition(0);
                 sleep(1000);
                 ClawR.setPosition(1);
                 //will need to do this to go under middle
@@ -259,7 +259,7 @@ public class redRightNA extends LinearOpMode {
                 sleep(1000);
                 ClawR.setPosition(.38); //will need to do this to go under middle
                 sleep(1000);
-                ClawP.setPosition(0);
+                //ClawP.setPosition(0);
                 sleep(1000);
                 ClawR.setPosition(1);
                 sleep(1000000);
