@@ -136,6 +136,9 @@ public class blueRight extends LinearOpMode {
         Trajectory t0 = drive.trajectoryBuilder(startPose)
                 .splineTo(new Vector2d(0,-32.5), Math.toRadians(0))
                  .build();
+        Trajectory t1 = drive.trajectoryBuilder(t0.end())
+                .splineTo(new Vector2d(0,0), Math.toRadians(90))
+                .build();
 
 
         //  Trajectories
@@ -219,7 +222,8 @@ public class blueRight extends LinearOpMode {
                 //Stick.setPosition(0);
                 sleep(1000);
                 drive.followTrajectory(t0);
-
+                sleep(1000);
+                drive.followTrajectory(t1);
                 sleep(1000);
                 //ClawR.setPosition(.38); //will need to do this to go under middle
 
