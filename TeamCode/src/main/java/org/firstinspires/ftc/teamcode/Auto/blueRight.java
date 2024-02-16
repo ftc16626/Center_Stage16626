@@ -48,7 +48,7 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 import java.util.concurrent.TimeUnit;
 
 /*
- * This OpMode illustrates how to use the DFRobot HuskyLens.
+ *
  *
  * The HuskyLens is a Vision Sensor with a built-in object detection model.  It can
  * detect a number of predefined objects and AprilTags in the 36h11 family, can
@@ -131,41 +131,62 @@ public class blueRight extends LinearOpMode {
 
         Pose2d startPose = new Pose2d(-63.25,-32.5);
 
-       // drive.setPoseEstimate(startPose);
+        //general actions
 
+        // Zone 1 actions
         Trajectory t0 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(0,-32.5), Math.toRadians(0))
+                .splineTo(new Vector2d(-32.5,-32.5), Math.toRadians(90)) //may need to change to linearheading
                  .build();
         Trajectory t1 = drive.trajectoryBuilder(t0.end())
-                .splineTo(new Vector2d(0,0), Math.toRadians(90))
-                .build();
-
-
-        //  Trajectories
-      /*  Trajectory t0 = drive.trajectoryBuilder(startPose)
-                .forward(28)
-                .build();
-        Trajectory t1 = drive.trajectoryBuilder(t0.end())
-                .back(23)
+                .strafeTo(new Vector2d(-12,-32.5))
                 .build();
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .strafeRight(20)
+                .lineTo(new Vector2d(-12,55))
                 .build();
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .forward(47)
+                .strafeTo(new Vector2d(-42,55))
                 .build();
         Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                .strafeLeft(15)
+                .strafeTo(new Vector2d(-12,55))
                 .build();
-        //turn to face toward backdrop
-        Trajectory t5 = drive.trajectoryBuilder(t4.end())
-                .strafeLeft(88)
+        // Zone 2 actions
+        Trajectory t10 = drive.trajectoryBuilder(startPose)
+                .lineTo(new Vector2d(-32.5,-32.5))
+                .build();
+        Trajectory t11 = drive.trajectoryBuilder(t10.end())
+                .strafeTo(new Vector2d(-32.5,-48))
+                .build();
+        Trajectory ts = drive.trajectoryBuilder(t11.end())
+                .strafeTo(new Vector2d(-32.5,-48))
+                .build();
+        Trajectory tsl = drive.trajectoryBuilder(ts.end())
+                .strafeTo(new Vector2d(-12,-48))
+                .build();
+        Trajectory t12 = drive.trajectoryBuilder(tsl.end())
+                .lineToLinearHeading(new Pose2d(-12,55, Math.toRadians(90)))
+                .build();
+        Trajectory t13 = drive.trajectoryBuilder(t12.end())
+                .strafeTo(new Vector2d(-30,55))
+                .build();
+        Trajectory t14 = drive.trajectoryBuilder(t13.end())
+                .strafeTo(new Vector2d(-12,55))
+                .build();
+        // Zone 3 actions
+        Trajectory t5 = drive.trajectoryBuilder(startPose)
+                .splineTo(new Vector2d(-32.5,-32.5), Math.toRadians(-90)) //may need to change to linearheading
                 .build();
         Trajectory t6 = drive.trajectoryBuilder(t5.end())
-                .back(12)
+                .strafeTo(new Vector2d(-12,-32.5))
                 .build();
-        //have 3 different strafe lefts, for different zones it will place for scoring
-*/
+        Trajectory t7 = drive.trajectoryBuilder(t6.end())
+                .lineToLinearHeading(new Pose2d(-12,55, Math.toRadians(90)))
+                .build();
+        Trajectory t8 = drive.trajectoryBuilder(t7.end())
+                .strafeTo(new Vector2d(-36,55))
+                .build();
+        Trajectory t9 = drive.trajectoryBuilder(t8.end())
+                .strafeTo(new Vector2d(-12,55))
+                .build();
         waitForStart();
 
         /*
@@ -195,8 +216,6 @@ public class blueRight extends LinearOpMode {
              * Returns an empty array if no objects are seen.
              */
 
-            // The following 6 lines of code took like 8 days to get working
-
             Block[] blocks = huskyLens.blocks();
             telemetry.addData("Block count", blocks.length);
             telemetry.addData("Blocks to string", blocks.toString());
@@ -213,57 +232,51 @@ public class blueRight extends LinearOpMode {
                 }
 
                 telemetry.addData("Zone", zone);
-            } /* code below here is added by derek, attempt/pseudo at using the roadrunner and having the bot
-            move around as meant to
-            */
+            }
             drive.setPoseEstimate(startPose);
 
             if (zone == 1) {
-                //Stick.setPosition(0);
-                sleep(1000);
+
                 drive.followTrajectory(t0);
-                sleep(1000);
+                //stick to release pixel on spike
                 drive.followTrajectory(t1);
-                sleep(1000);
-                //ClawR.setPosition(.38); //will need to do this to go under middle
+                drive.followTrajectory(t2);
+                //lift arm up for placement
+                drive.followTrajectory(t3);
+                //place pixel
+                drive.followTrajectory(t4);
+                //return arm position
+                sleep(1000000000);
 
             }
 
             if (zone == 2) {
-                Stick.setPosition(0);
-                sleep(1000);
-                drive.followTrajectory(t0);
-                sleep(1000);
-                Stick.setPosition(.8);
-                sleep(1000);
-               // drive.followTrajectory(t1);
-                sleep(1000);
-
-                sleep(1000);
-                ClawR.setPosition(.38); //will need to do this to go under middle
-                // drive.turn(Math.toRadians(-90));
-                sleep(1000);
-
-                //t7 and arm/clawP code
+                drive.followTrajectory(t10);
+                //stick to release pixel on spike
+                drive.followTrajectory(t11);
+                drive.followTrajectory(ts);
+                drive.followTrajectory(tsl);
+                drive.followTrajectory(t12);
+                //lift arm up for placement
+                drive.followTrajectory(t13);
+                //place pixel
+                drive.followTrajectory(t14);
+                //return arm position
                 sleep(1000000000);
 
 
             }
             if (zone == 3) {
-                Stick.setPosition(0);
-                sleep(1000);
-                drive.followTrajectory(t0);
-                sleep(1000);
-                drive.turn(Math.toRadians(-90));
-                sleep(1000);
-                Stick.setPosition(.8);
-                sleep(1000);
-                drive.turn(Math.toRadians(90));
-                sleep(1000);
-              //  drive.followTrajectory(t1);
-                sleep(1000);
-
-                sleep(1000000);
+                drive.followTrajectory(t5);
+                //stick to release pixel on spike
+                drive.followTrajectory(t6);
+                drive.followTrajectory(t7);
+                //lift arm up for placement
+                drive.followTrajectory(t8);
+                //place pixel
+                drive.followTrajectory(t9);
+                //return arm position
+                sleep(1000000000);
             }
 
             telemetry.update();
