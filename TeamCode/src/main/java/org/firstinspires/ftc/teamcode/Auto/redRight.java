@@ -147,22 +147,13 @@ public class redRight extends LinearOpMode {
                 .build();
         // Zone 2 actions
         Trajectory t10 = drive.trajectoryBuilder(startPose)
-                .lineTo(new Vector2d(32.5,-37))
+                .lineTo(new Vector2d(32.5,8.5))
                 .build();
         Trajectory t11 = drive.trajectoryBuilder(t10.end())
-                .strafeTo(new Vector2d(32.5,-50))
+                .lineToLinearHeading(new Pose2d(36,55, Math.toRadians(90)))
                 .build();
-        Trajectory tsl = drive.trajectoryBuilder(t11.end())
-                .strafeTo(new Vector2d(12,-50))
-                .build();
-        Trajectory t12 = drive.trajectoryBuilder(tsl.end())
-                .lineToLinearHeading(new Pose2d(12,55, Math.toRadians(90)))
-                .build();
-        Trajectory t13 = drive.trajectoryBuilder(t12.end())
-                .strafeTo(new Vector2d(36,55))
-                .build();
-        Trajectory t14 = drive.trajectoryBuilder(t13.end())
-                .strafeTo(new Vector2d(12,55))
+        Trajectory t12 = drive.trajectoryBuilder(t11.end())
+                .strafeTo(new Vector2d(60,55))
                 .build();
         // Zone 3 actions
         Trajectory t4 = drive.trajectoryBuilder(startPose)
@@ -252,12 +243,9 @@ public class redRight extends LinearOpMode {
                 drive.followTrajectory(t10);
                 //stick to release pixel on spike
                 drive.followTrajectory(t11);
-                drive.followTrajectory(tsl);
-                drive.followTrajectory(t12);
                 //lift arm up for placement
-                drive.followTrajectory(t13);
                 //place pixel
-                drive.followTrajectory(t14);
+                drive.followTrajectory(t12);
                 //return arm position
                 sleep(1000000000);
 
