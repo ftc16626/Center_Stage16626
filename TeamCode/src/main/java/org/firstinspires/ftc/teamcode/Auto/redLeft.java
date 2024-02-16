@@ -33,6 +33,7 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.hardware.dfrobot.HuskyLens.Block;
@@ -122,35 +123,61 @@ public class redLeft extends LinearOpMode {
         huskyLens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
-        Pose2d startPose = new Pose2d();
-        drive.setPoseEstimate(startPose);
-        //  Trajectories
+        Pose2d startPose = new Pose2d(63.25,-37);
+
+        //general actions
+
+        // Zone 1 actions
         Trajectory t0 = drive.trajectoryBuilder(startPose)
-                .forward(28)
+                .splineTo(new Vector2d(32.5,-37), Math.toRadians(-90)) //may need to change to linearheading
                 .build();
         Trajectory t1 = drive.trajectoryBuilder(t0.end())
-                .back(23)
+                .strafeTo(new Vector2d(12,-37))
                 .build();
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .strafeLeft(20)
+                .lineTo(new Vector2d(12,55))
                 .build();
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .forward(47)
+                .strafeTo(new Vector2d(30,55))
                 .build();
         Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                .strafeRight(15)
+                .strafeTo(new Vector2d(12,55))
                 .build();
-        //turn to face toward backdrop
-        Trajectory t5 = drive.trajectoryBuilder(t4.end())
-                .strafeRight(87)
+        // Zone 2 actions
+        Trajectory t10 = drive.trajectoryBuilder(startPose)
+                .lineTo(new Vector2d(32.5,-37))
+                .build();
+        Trajectory t11 = drive.trajectoryBuilder(t10.end())
+                .strafeTo(new Vector2d(32.5,-50))
+                .build();
+        Trajectory tsl = drive.trajectoryBuilder(t11.end())
+                .strafeTo(new Vector2d(12,-50))
+                .build();
+        Trajectory t12 = drive.trajectoryBuilder(tsl.end())
+                .lineToLinearHeading(new Pose2d(12,55, Math.toRadians(90)))
+                .build();
+        Trajectory t13 = drive.trajectoryBuilder(t12.end())
+                .strafeTo(new Vector2d(36,55))
+                .build();
+        Trajectory t14 = drive.trajectoryBuilder(t13.end())
+                .strafeTo(new Vector2d(12,55))
+                .build();
+        // Zone 3 actions
+        Trajectory t5 = drive.trajectoryBuilder(startPose)
+                .splineTo(new Vector2d(32.5,-37), Math.toRadians(90)) //may need to change to linearheading
                 .build();
         Trajectory t6 = drive.trajectoryBuilder(t5.end())
-                .back(12)
+                .strafeTo(new Vector2d(12,-37))
                 .build();
-
-        //zone 1 traj
-        //have 3 different strafe rights, for different zones it will place for scoring
-
+        Trajectory t7 = drive.trajectoryBuilder(t6.end())
+                .lineToLinearHeading(new Pose2d(12,55, Math.toRadians(90)))
+                .build();
+        Trajectory t8 = drive.trajectoryBuilder(t7.end())
+                .strafeTo(new Vector2d(42,55))
+                .build();
+        Trajectory t9 = drive.trajectoryBuilder(t8.end())
+                .strafeTo(new Vector2d( 12,55))
+                .build();
         waitForStart();
 
         /*
@@ -180,8 +207,6 @@ public class redLeft extends LinearOpMode {
              * Returns an empty array if no objects are seen.
              */
 
-            // The following 6 lines of code took like 8 days to get working
-
             Block[] blocks = huskyLens.blocks();
             telemetry.addData("Block count", blocks.length);
             telemetry.addData("Blocks to string", blocks.toString());
@@ -198,111 +223,50 @@ public class redLeft extends LinearOpMode {
                 }
 
                 telemetry.addData("Zone", zone);
-            } /* code below here is added by derek, attempt/pseudo at using the roadrunner and having the bot
-            move around as meant to
-            */
+            }
+            drive.setPoseEstimate(startPose);
 
             if (zone == 1) {
-                Stick.setPosition(0);
-                sleep(1000);
+
                 drive.followTrajectory(t0);
-                sleep(1000);
-                drive.turn(Math.toRadians(90));
-                sleep(1000);
-                Stick.setPosition(.8);
-                sleep(1000);
-                drive.turn(Math.toRadians(-90));
-                sleep(1000);
+                //stick to release pixel on spike
                 drive.followTrajectory(t1);
-                sleep(1000);
                 drive.followTrajectory(t2);
-                sleep(1000);
+                //lift arm up for placement
                 drive.followTrajectory(t3);
-                sleep(1000);
+                //place pixel
                 drive.followTrajectory(t4);
-                sleep(1000);
-                drive.turn(Math.toRadians(-90));
-                sleep(1000);
-                ClawR.setPosition(.38); //will need to do this to go under middle
-                sleep(1000);
-                drive.followTrajectory(t5);
-                sleep(1000);
-                drive.followTrajectory(t6);
-                sleep(1000);
-                drive.turn(Math.toRadians(180));
-                sleep(1000);
-                ClawP.setPosition(0);
-                sleep(1000);
-                ClawR.setPosition(1);
-                //this will then have t6
-                // code for actuating arm/clawP
-                sleep(1000000);
+                //return arm position
+                sleep(1000000000);
+
             }
 
             if (zone == 2) {
-                Stick.setPosition(0);
-                sleep(1000);
-                drive.followTrajectory(t0);
-                sleep(1000);
-                Stick.setPosition(.8);
-                sleep(1000);
-                drive.followTrajectory(t1);
-                sleep(1000);
-                drive.followTrajectory(t2);
-                sleep(1000);
-                drive.followTrajectory(t3);
-                sleep(1000);
-                drive.followTrajectory(t4);
-                sleep(1000);
-                ClawR.setPosition(.38); //will need to do this to go under middle
-                // drive.turn(Math.toRadians(-90));
-                sleep(1000);
-                drive.followTrajectory(t5);
-                sleep(1000);
-                drive.followTrajectory(t6);
-                sleep(1000);
-                drive.turn(Math.toRadians(180));
-                sleep(1000);
-                ClawP.setPosition(0);
-                sleep(1000);
-                ClawR.setPosition(1);
-                //t7 and arm/clawP code
+                drive.followTrajectory(t10);
+                //stick to release pixel on spike
+                drive.followTrajectory(t11);
+                drive.followTrajectory(tsl);
+                drive.followTrajectory(t12);
+                //lift arm up for placement
+                drive.followTrajectory(t13);
+                //place pixel
+                drive.followTrajectory(t14);
+                //return arm position
                 sleep(1000000000);
 
 
             }
             if (zone == 3) {
-                Stick.setPosition(0);
-                sleep(1000);
-                drive.followTrajectory(t0);
-                sleep(1000);
-                drive.turn(Math.toRadians(-90));
-                sleep(1000);
-                Stick.setPosition(.8);
-                sleep(1000);
-                drive.turn(Math.toRadians(90));
-                sleep(1000);
-                drive.followTrajectory(t1);
-                sleep(1000);
-                drive.followTrajectory(t2);
-                sleep(1000);
-                drive.followTrajectory(t3);
-                sleep(1000);
-                drive.followTrajectory(t4);
-                sleep(1000);
-                ClawR.setPosition(.38); //will need to do this to go under middle
-                sleep(1000);
                 drive.followTrajectory(t5);
-                sleep(1000);
+                //stick to release pixel on spike
                 drive.followTrajectory(t6);
-                sleep(1000);
-                drive.turn(Math.toRadians(180));
-                sleep(1000);
-                ClawP.setPosition(0);
-                sleep(1000);
-                ClawR.setPosition(1);
-                //t8 and arm/clawP code
-                sleep(1000000);
+                drive.followTrajectory(t7);
+                //lift arm up for placement
+                drive.followTrajectory(t8);
+                //place pixel
+                drive.followTrajectory(t9);
+                //return arm position
+                sleep(1000000000);
             }
 
             telemetry.update();

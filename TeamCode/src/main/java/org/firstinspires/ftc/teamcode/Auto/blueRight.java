@@ -156,17 +156,14 @@ public class blueRight extends LinearOpMode {
         Trajectory t11 = drive.trajectoryBuilder(t10.end())
                 .strafeTo(new Vector2d(-32.5,-48))
                 .build();
-        Trajectory ts = drive.trajectoryBuilder(t11.end())
-                .strafeTo(new Vector2d(-32.5,-48))
-                .build();
-        Trajectory tsl = drive.trajectoryBuilder(ts.end())
+        Trajectory tsl = drive.trajectoryBuilder(t11.end())
                 .strafeTo(new Vector2d(-12,-48))
                 .build();
         Trajectory t12 = drive.trajectoryBuilder(tsl.end())
                 .lineToLinearHeading(new Pose2d(-12,55, Math.toRadians(90)))
                 .build();
         Trajectory t13 = drive.trajectoryBuilder(t12.end())
-                .strafeTo(new Vector2d(-30,55))
+                .strafeTo(new Vector2d(-36,55))
                 .build();
         Trajectory t14 = drive.trajectoryBuilder(t13.end())
                 .strafeTo(new Vector2d(-12,55))
@@ -182,7 +179,7 @@ public class blueRight extends LinearOpMode {
                 .lineToLinearHeading(new Pose2d(-12,55, Math.toRadians(90)))
                 .build();
         Trajectory t8 = drive.trajectoryBuilder(t7.end())
-                .strafeTo(new Vector2d(-36,55))
+                .strafeTo(new Vector2d(-30,55))
                 .build();
         Trajectory t9 = drive.trajectoryBuilder(t8.end())
                 .strafeTo(new Vector2d(-12,55))
@@ -254,7 +251,6 @@ public class blueRight extends LinearOpMode {
                 drive.followTrajectory(t10);
                 //stick to release pixel on spike
                 drive.followTrajectory(t11);
-                drive.followTrajectory(ts);
                 drive.followTrajectory(tsl);
                 drive.followTrajectory(t12);
                 //lift arm up for placement
