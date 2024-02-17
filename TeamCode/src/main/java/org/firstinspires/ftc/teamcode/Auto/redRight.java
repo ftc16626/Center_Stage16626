@@ -80,8 +80,7 @@ public class redRight extends LinearOpMode {
         Stick = hardwareMap.servo.get("Stick");
         ClawR = hardwareMap.servo.get("ClawR"); //For rotation
         ClawR.setPosition(1);
-        ClawP = hardwareMap.servo.get("ClawP"); //For pinching
-        ClawP.setPosition(1);
+
 
         //Arm
         DcMotor armMotor = hardwareMap.dcMotor.get("RAMotor");

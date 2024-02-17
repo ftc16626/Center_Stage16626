@@ -83,8 +83,7 @@ public class blueLeft extends LinearOpMode {
         Stick = hardwareMap.servo.get("Stick");
         ClawR = hardwareMap.servo.get("ClawR"); //For rotation
         ClawR.setPosition(1);
-        ClawP = hardwareMap.servo.get("ClawP"); //For pinching
-        ClawP.setPosition(1);
+
 
         //Arm
         DcMotor armMotor = hardwareMap.dcMotor.get("RAMotor");
@@ -131,7 +130,7 @@ public class blueLeft extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
-        Pose2d startPose = new Pose2d(-63.25,13, Math.toRadians(180));
+        Pose2d startPose = new Pose2d(-63.25,13);
 
         //general actions
 

@@ -79,8 +79,7 @@ public class redLeft extends LinearOpMode {
         Stick = hardwareMap.servo.get("Stick");
         ClawR = hardwareMap.servo.get("ClawR"); //For rotation
         ClawR.setPosition(1);
-        ClawP = hardwareMap.servo.get("ClawP"); //For pinching
-        ClawP.setPosition(1);
+
         /*
          * This sample rate limits the reads solely to allow a user time to observe
          * what is happening on the Driver Station telemetry.  Typical applications
@@ -123,7 +122,7 @@ public class redLeft extends LinearOpMode {
         huskyLens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
-        Pose2d startPose = new Pose2d(63.25,-37);
+        Pose2d startPose = new Pose2d(63.25,-37, Math.toRadians(180));
 
         //general actions
 
