@@ -134,13 +134,13 @@ public class redLeft extends LinearOpMode {
                 .strafeTo(new Vector2d(12,-37))
                 .build();
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .lineTo(new Vector2d(12,55))
+                .lineTo(new Vector2d(12,48))
                 .build();
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .strafeTo(new Vector2d(30,55))
+                .strafeTo(new Vector2d(30,48))
                 .build();
         Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                .strafeTo(new Vector2d(12,55))
+                .strafeTo(new Vector2d(12,48))
                 .build();
         // Zone 2 actions
         Trajectory t10 = drive.trajectoryBuilder(startPose)

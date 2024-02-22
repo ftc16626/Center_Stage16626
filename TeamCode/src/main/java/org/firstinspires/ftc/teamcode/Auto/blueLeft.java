@@ -132,7 +132,6 @@ public class blueLeft extends LinearOpMode {
 
         Pose2d startPose = new Pose2d(-63.25,13);
 
-        //general actions
 
         // Zone 1 actions
         Trajectory t0 = drive.trajectoryBuilder(startPose)
