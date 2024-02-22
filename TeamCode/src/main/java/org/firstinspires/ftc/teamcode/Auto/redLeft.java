@@ -122,25 +122,25 @@ public class redLeft extends LinearOpMode {
         huskyLens.selectAlgorithm(HuskyLens.Algorithm.COLOR_RECOGNITION);
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
-        Pose2d startPose = new Pose2d(63.25,-37, Math.toRadians(180));
+        Pose2d startPose = new Pose2d(63.25,-39, Math.toRadians(180));
 
         //general actions
 
         // Zone 1 actions
         Trajectory t0 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(32.5,-37), Math.toRadians(-90)) //may need to change to linearheading
+                .splineTo(new Vector2d(32.5,-33), Math.toRadians(-90)) //may need to change to linearheading
                 .build();
         Trajectory t1 = drive.trajectoryBuilder(t0.end())
-                .strafeTo(new Vector2d(12,-37))
+                .splineTo(new Vector2d(10,-32),Math.toRadians(-90))
                 .build();
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .lineTo(new Vector2d(12,48))
+                .lineTo(new Vector2d(10,30))
                 .build();
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .strafeTo(new Vector2d(30,48))
+                .strafeTo(new Vector2d(30,30))
                 .build();
         Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                .strafeTo(new Vector2d(12,48))
+                .strafeTo(new Vector2d(12,30))
                 .build();
         // Zone 2 actions
         Trajectory t10 = drive.trajectoryBuilder(startPose)
