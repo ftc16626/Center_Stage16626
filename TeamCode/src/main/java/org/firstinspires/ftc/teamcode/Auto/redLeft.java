@@ -139,7 +139,7 @@ public class redLeft extends LinearOpMode {
 
         // Zone 1 actions
         Trajectory t0 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(32.5,-36), Math.toRadians(-90)) //may need to change to linearheading
+                .splineTo(new Vector2d(34.5,-36), Math.toRadians(-90)) //may need to change to linearheading
                 .build();
         Trajectory t1 = drive.trajectoryBuilder(t0.end())
                 .strafeTo(new Vector2d(10,-36))
@@ -244,8 +244,9 @@ public class redLeft extends LinearOpMode {
                 drive.followTrajectory(t1);
                 drive.followTrajectory(t2);
                 //lift arm up for placement
-                RAMotor.setTargetPosition(-976); //Arm h]Height
+                RAMotor.set(-976); //Arm h]Height
                 ClawR.setPosition(.57167); //Claw Rotation
+                sleep(1000);
                 drive.followTrajectory(t3);
                 ClawP.setPower(-1);
                 ClawW.setPower(-1);
