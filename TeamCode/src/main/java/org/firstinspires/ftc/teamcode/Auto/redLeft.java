@@ -40,6 +40,10 @@ import com.qualcomm.hardware.dfrobot.HuskyLens.Block;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -67,7 +71,9 @@ public class redLeft extends LinearOpMode {
 
     public Servo Stick;
     public Servo ClawR; //Rotates Claw
-    public Servo ClawP;
+    public CRServo ClawP;
+    public CRServo ClawW;
+    public DcMotor RAMotor;
     private final int READ_PERIOD = 1;
 
     private HuskyLens huskyLens;
@@ -79,6 +85,12 @@ public class redLeft extends LinearOpMode {
         Stick = hardwareMap.servo.get("Stick");
         ClawR = hardwareMap.servo.get("ClawR"); //For rotation
         ClawR.setPosition(1);
+        ClawP = hardwareMap.crservo.get("ClawP");//For wheels pixel
+        ClawW = hardwareMap.crservo.get("ClawW");//For wheels pixel
+
+        DcMotor RAMotor = hardwareMap.dcMotor.get("RAMotor");
+        RAMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        RAMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         /*
          * This sample rate limits the reads solely to allow a user time to observe
@@ -124,58 +136,57 @@ public class redLeft extends LinearOpMode {
         telemetry.update();
         Pose2d startPose = new Pose2d(63.25,-38, Math.toRadians(180));
 
-        //general actions
 
         // Zone 1 actions
         Trajectory t0 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(32.5,-33), Math.toRadians(-90)) //may need to change to linearheading
+                .splineTo(new Vector2d(32.5,-36), Math.toRadians(-90)) //may need to change to linearheading
                 .build();
         Trajectory t1 = drive.trajectoryBuilder(t0.end())
-                .splineTo(new Vector2d(10,-30),Math.toRadians(-90))
+                .strafeTo(new Vector2d(10,-36))
                 .build();
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .lineTo(new Vector2d(10,28))
+                .lineToLinearHeading(new Pose2d(10,50,Math.toRadians(90)))
                 .build();
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .strafeTo(new Vector2d(30,28))
+                .strafeTo(new Vector2d(30,50))
                 .build();
         Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                .strafeTo(new Vector2d(12,28))
+                .strafeTo(new Vector2d(10,50))
                 .build();
         // Zone 2 actions
         Trajectory t10 = drive.trajectoryBuilder(startPose)
-                .lineTo(new Vector2d(32.5,-37))
+                .lineTo(new Vector2d(34.5,-36))
                 .build();
         Trajectory t11 = drive.trajectoryBuilder(t10.end())
-                .strafeTo(new Vector2d(32.5,-50))
+                .strafeTo(new Vector2d(34.5,-50))
                 .build();
         Trajectory tsl = drive.trajectoryBuilder(t11.end())
-                .strafeTo(new Vector2d(12,-50))
+                .strafeTo(new Vector2d(10,-50))
                 .build();
         Trajectory t12 = drive.trajectoryBuilder(tsl.end())
-                .lineToLinearHeading(new Pose2d(12,55, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(10,47, Math.toRadians(90)))
                 .build();
         Trajectory t13 = drive.trajectoryBuilder(t12.end())
-                .strafeTo(new Vector2d(36,55))
+                .strafeTo(new Vector2d(38,47))
                 .build();
         Trajectory t14 = drive.trajectoryBuilder(t13.end())
-                .strafeTo(new Vector2d(12,55))
+                .strafeTo(new Vector2d(10,47))
                 .build();
         // Zone 3 actions
         Trajectory t5 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(32.5,-37), Math.toRadians(90)) //may need to change to linearheading
+                .splineTo(new Vector2d(32.5,-36), Math.toRadians(90)) //may need to change to linearheading
                 .build();
         Trajectory t6 = drive.trajectoryBuilder(t5.end())
-                .strafeTo(new Vector2d(12,-37))
+                .strafeTo(new Vector2d(10,-36))
                 .build();
         Trajectory t7 = drive.trajectoryBuilder(t6.end())
-                .lineToLinearHeading(new Pose2d(12,55, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(10,51, Math.toRadians(90)))
                 .build();
         Trajectory t8 = drive.trajectoryBuilder(t7.end())
-                .strafeTo(new Vector2d(42,55))
+                .strafeTo(new Vector2d(44,51))
                 .build();
         Trajectory t9 = drive.trajectoryBuilder(t8.end())
-                .strafeTo(new Vector2d( 12,55))
+                .strafeTo(new Vector2d( 10,51))
                 .build();
         waitForStart();
 
@@ -226,23 +237,34 @@ public class redLeft extends LinearOpMode {
             drive.setPoseEstimate(startPose);
 
             if (zone == 1) {
-
+                Stick.setPosition(0);
+                sleep(100);
                 drive.followTrajectory(t0);
-                //stick to release pixel on spike
+                Stick.setPosition(.8);
                 drive.followTrajectory(t1);
                 drive.followTrajectory(t2);
                 //lift arm up for placement
+                RAMotor.setTargetPosition(-976); //Arm h]Height
+                ClawR.setPosition(.57167); //Claw Rotation
                 drive.followTrajectory(t3);
-                //place pixel
+                ClawP.setPower(-1);
+                ClawW.setPower(-1);
+                sleep(1000);
+                ClawP.setPower(0);
+                ClawW.setPower(0);//place pixel
                 drive.followTrajectory(t4);
                 //return arm position
+                RAMotor.setTargetPosition(0); //Arm h]Height
+                ClawR.setPosition(1); //Claw Rotation
                 sleep(1000000000);
 
             }
 
             if (zone == 2) {
+                Stick.setPosition(0);
+                sleep(100);
                 drive.followTrajectory(t10);
-                //stick to release pixel on spike
+                Stick.setPosition(.8);
                 drive.followTrajectory(t11);
                 drive.followTrajectory(tsl);
                 drive.followTrajectory(t12);
@@ -256,8 +278,10 @@ public class redLeft extends LinearOpMode {
 
             }
             if (zone == 3) {
+                Stick.setPosition(0);
+                sleep(100);
                 drive.followTrajectory(t5);
-                //stick to release pixel on spike
+                Stick.setPosition(.8);
                 drive.followTrajectory(t6);
                 drive.followTrajectory(t7);
                 //lift arm up for placement
