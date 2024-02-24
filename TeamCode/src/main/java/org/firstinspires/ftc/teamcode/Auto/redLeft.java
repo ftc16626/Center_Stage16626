@@ -164,13 +164,13 @@ public class redLeft extends LinearOpMode {
                 .strafeTo(new Vector2d(10,-50))
                 .build();
         Trajectory t12 = drive.trajectoryBuilder(tsl.end())
-                .lineToLinearHeading(new Pose2d(10,47, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(10,50, Math.toRadians(90)))
                 .build();
         Trajectory t13 = drive.trajectoryBuilder(t12.end())
-                .strafeTo(new Vector2d(38,47))
+                .strafeTo(new Vector2d(38,50))
                 .build();
         Trajectory t14 = drive.trajectoryBuilder(t13.end())
-                .strafeTo(new Vector2d(10,47))
+                .strafeTo(new Vector2d(10,50))
                 .build();
         // Zone 3 actions
         Trajectory t5 = drive.trajectoryBuilder(startPose)
@@ -180,13 +180,13 @@ public class redLeft extends LinearOpMode {
                 .strafeTo(new Vector2d(10,-36))
                 .build();
         Trajectory t7 = drive.trajectoryBuilder(t6.end())
-                .lineToLinearHeading(new Pose2d(10,51, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(10,50, Math.toRadians(90)))
                 .build();
         Trajectory t8 = drive.trajectoryBuilder(t7.end())
-                .strafeTo(new Vector2d(44,51))
+                .strafeTo(new Vector2d(44,50))
                 .build();
         Trajectory t9 = drive.trajectoryBuilder(t8.end())
-                .strafeTo(new Vector2d( 10,51))
+                .strafeTo(new Vector2d( 10,50))
                 .build();
         waitForStart();
 
@@ -276,10 +276,24 @@ public class redLeft extends LinearOpMode {
                 drive.followTrajectory(tsl);
                 drive.followTrajectory(t12);
                 //lift arm up for placement
+                RAMotor.setPower(1);
+                sleep(1050);
+                RAMotor.setPower(0);
+                //Arm Height
+                ClawR.setPosition(.6167); //Claw Rotation
+                sleep(1000);
                 drive.followTrajectory(t13);
-                //place pixel
+                ClawP.setPower(-1);
+                ClawW.setPower(-1);
+                sleep(1000);
+                ClawP.setPower(0);
+                ClawW.setPower(0);//place pixel
                 drive.followTrajectory(t14);
-                //return arm position
+                RAMotor.setPower(-1);
+                sleep(1050);
+                RAMotor.setPower(0);
+                ClawR.setPosition(1);
+                sleep(10000);//return arm position
                 sleep(1000000000);
 
 
@@ -292,10 +306,24 @@ public class redLeft extends LinearOpMode {
                 drive.followTrajectory(t6);
                 drive.followTrajectory(t7);
                 //lift arm up for placement
+                RAMotor.setPower(1);
+                sleep(1050);
+                RAMotor.setPower(0);
+                //Arm Height
+                ClawR.setPosition(.6167); //Claw Rotation
+                sleep(1000);
                 drive.followTrajectory(t8);
-                //place pixel
+                ClawP.setPower(-1);
+                ClawW.setPower(-1);
+                sleep(1000);
+                ClawP.setPower(0);
+                ClawW.setPower(0);//place pixel
                 drive.followTrajectory(t9);
-                //return arm position
+                RAMotor.setPower(-1);
+                sleep(1050);
+                RAMotor.setPower(0);
+                ClawR.setPosition(1);
+                sleep(10000);//return arm position
                 sleep(1000000000);
             }
 
