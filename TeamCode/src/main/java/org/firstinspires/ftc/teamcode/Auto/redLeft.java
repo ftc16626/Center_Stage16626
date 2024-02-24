@@ -89,8 +89,8 @@ public class redLeft extends LinearOpMode {
         ClawW = hardwareMap.crservo.get("ClawW");//For wheels pixel
 
         DcMotor RAMotor = hardwareMap.dcMotor.get("RAMotor");
-        RAMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        RAMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RAMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
 
         /*
          * This sample rate limits the reads solely to allow a user time to observe
@@ -244,8 +244,9 @@ public class redLeft extends LinearOpMode {
                 drive.followTrajectory(t1);
                 drive.followTrajectory(t2);
                 //lift arm up for placement
-                RAMotor.setTargetPosition(460);
-                RAMotor.setPower(.7);
+                RAMotor.setPower(1);
+                sleep(1050);
+                RAMotor.setPower(0);
                 //Arm Height
                 ClawR.setPosition(.6167); //Claw Rotation
                 sleep(1000);
@@ -257,8 +258,9 @@ public class redLeft extends LinearOpMode {
                 ClawW.setPower(0);//place pixel
                 drive.followTrajectory(t4);
                 //return arm position
-                RAMotor.setTargetPosition(0);
-                RAMotor.setPower(.7);//Arm h]Height
+                RAMotor.setPower(-1);
+                sleep(1050);
+                RAMotor.setPower(0);
                 ClawR.setPosition(1);
                 sleep(10000);//Claw Rotation
                 sleep(1000000000);
