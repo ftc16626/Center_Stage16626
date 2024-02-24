@@ -130,47 +130,47 @@ public class blueLeft extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
-        Pose2d startPose = new Pose2d(-63.25,13);
+        Pose2d startPose = new Pose2d(-63.25,15.5);
 
 
         // Zone 1 actions
         Trajectory t0 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(-32.5,13), Math.toRadians(-90)) //may need to change to linearheading
+                .splineTo(new Vector2d(-32.5,14.5), Math.toRadians(90)) //may need to change to linearheading
                 .build();
         Trajectory t1 = drive.trajectoryBuilder(t0.end())
-                .strafeTo(new Vector2d(-60,13))
+                .strafeTo(new Vector2d(-60,15.5))
                 .build();
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .lineTo(new Vector2d(-60,55))
+                .lineTo(new Vector2d(-60,49))
                 .build();
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .strafeTo(new Vector2d(-42,55))
+                .strafeTo(new Vector2d(-42,49))
                 .build();
         Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                .strafeTo(new Vector2d(-60,55))
+                .strafeTo(new Vector2d(-60,49))
                 .build();
         // Zone 2 actions
         Trajectory t10 = drive.trajectoryBuilder(startPose)
-                .lineTo(new Vector2d(-32.5,13))
+                .lineTo(new Vector2d(-34.5,15.5))
                 .build();
         Trajectory t11 = drive.trajectoryBuilder(t10.end())
-                .lineToLinearHeading(new Pose2d(-36,55, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-36,49, Math.toRadians(90)))
                 .build();
         Trajectory t12 = drive.trajectoryBuilder(t11.end())
-                .strafeTo(new Vector2d(-60,55))
+                .strafeTo(new Vector2d(-60,49))
                 .build();
         // Zone 3 actions
         Trajectory t5 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(-32.5,13), Math.toRadians(-90)) //may need to change to linearheading
+                .splineTo(new Vector2d(-32.5,15.5), Math.toRadians(-90)) //may need to change to linearheading
                 .build();
         Trajectory t6 = drive.trajectoryBuilder(t5.end())
-                .lineToLinearHeading(new Pose2d(-60,55, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-60,49, Math.toRadians(90)))
                 .build();
         Trajectory t7 = drive.trajectoryBuilder(t6.end())
-                .strafeTo(new Vector2d(-30,55))
+                .strafeTo(new Vector2d(-30,49))
                 .build();
         Trajectory t8 = drive.trajectoryBuilder(t7.end())
-                .strafeTo(new Vector2d(-60,55))
+                .strafeTo(new Vector2d(-60,49))
                 .build();
 
         waitForStart();
@@ -235,6 +235,7 @@ public class blueLeft extends LinearOpMode {
                 drive.followTrajectory(t2);
                 //place pixel
                 drive.followTrajectory(t3);
+                drive.followTrajectory(t4);
                 //return arm position
                 sleep(1000000000);
 
@@ -253,9 +254,9 @@ public class blueLeft extends LinearOpMode {
 
             }
             if (zone == 3) {
-                drive.followTrajectory(t4);
-                //stick to release pixel on spike
+
                 drive.followTrajectory(t5);
+                //stick to release pixel on spike
                 drive.followTrajectory(t6);
                 //lift arm up for placement
                 drive.followTrajectory(t7);

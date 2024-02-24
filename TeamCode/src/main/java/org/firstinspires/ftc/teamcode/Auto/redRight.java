@@ -136,39 +136,39 @@ public class redRight extends LinearOpMode {
                 .splineTo(new Vector2d(32.5,8.5), Math.toRadians(-90)) //may need to change to linearheading
                 .build();
         Trajectory t1 = drive.trajectoryBuilder(t0.end())
-                .lineToLinearHeading(new Pose2d(60,55, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(60,48 , Math.toRadians(90)))
                 .build();
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .strafeTo(new Vector2d(30,55))
+                .strafeTo(new Vector2d(30,48))
                 .build();
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .strafeTo(new Vector2d(60,55))
+                .strafeTo(new Vector2d(60,48))
                 .build();
         // Zone 2 actions
         Trajectory t10 = drive.trajectoryBuilder(startPose)
-                .lineTo(new Vector2d(32.5,8.5))
+                .lineTo(new Vector2d(34.5,8.5))
                 .build();
         Trajectory t11 = drive.trajectoryBuilder(t10.end())
-                .lineToLinearHeading(new Pose2d(36,55, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(36,48, Math.toRadians(90)))
                 .build();
         Trajectory t12 = drive.trajectoryBuilder(t11.end())
-                .strafeTo(new Vector2d(60,55))
+                .strafeTo(new Vector2d(60,48))
                 .build();
         // Zone 3 actions
         Trajectory t4 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(32.5,8.5), Math.toRadians(90)) //may need to change to linearheading
+                .lineToLinearHeading(new Pose2d(32.5,8.5, Math.toRadians(90))) //may need to change to linearheading
                 .build();
         Trajectory t5 = drive.trajectoryBuilder(t4.end())
                 .strafeTo(new Vector2d(60,8.5))
                 .build();
         Trajectory t6 = drive.trajectoryBuilder(t5.end())
-                .lineTo(new Vector2d(60,55))
+                .lineTo(new Vector2d(60,48))
                 .build();
         Trajectory t7 = drive.trajectoryBuilder(t6.end())
-                .strafeTo(new Vector2d(42,55))
+                .strafeTo(new Vector2d(42,48))
                 .build();
         Trajectory t8 = drive.trajectoryBuilder(t7.end())
-                .strafeTo(new Vector2d(60,55))
+                .strafeTo(new Vector2d(60,48))
                 .build();
 
         waitForStart();

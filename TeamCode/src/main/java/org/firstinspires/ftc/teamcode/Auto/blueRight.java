@@ -129,60 +129,66 @@ public class blueRight extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
         telemetry.update();
 
-        Pose2d startPose = new Pose2d(-63.25,-32.5);
+        Pose2d startPose = new Pose2d(-63.25,-33, Math.toRadians(-0));
 
         //general actions
 
         // Zone 1 actions
         Trajectory t0 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(-32.5,-32.5), Math.toRadians(90)) //may need to change to linearheading
+                .splineTo(new Vector2d(-32.5,-34), Math.toRadians(90)) //may need to change to linearheading
                  .build();
         Trajectory t1 = drive.trajectoryBuilder(t0.end())
-                .strafeTo(new Vector2d(-12,-32.5))
+                .strafeTo(new Vector2d(-12,-34))
                 .build();
         Trajectory t2 = drive.trajectoryBuilder(t1.end())
-                .lineTo(new Vector2d(-12,55))
+                .lineTo(new Vector2d(-12,49))
                 .build();
         Trajectory t3 = drive.trajectoryBuilder(t2.end())
-                .strafeTo(new Vector2d(-42,55))
+                .strafeTo(new Vector2d(-42,49))
                 .build();
         Trajectory t4 = drive.trajectoryBuilder(t3.end())
-                .strafeTo(new Vector2d(-12,55))
+                .strafeTo(new Vector2d(-12,49))
                 .build();
         // Zone 2 actions
         Trajectory t10 = drive.trajectoryBuilder(startPose)
-                .lineTo(new Vector2d(-32.5,-32.5))
+                .lineTo(new Vector2d(-35.5,-34))
                 .build();
         Trajectory t11 = drive.trajectoryBuilder(t10.end())
-                .strafeTo(new Vector2d(-32.5,-48))
+                .strafeTo(new Vector2d(-35.5,-48))
                 .build();
         Trajectory tsl = drive.trajectoryBuilder(t11.end())
                 .strafeTo(new Vector2d(-12,-48))
                 .build();
         Trajectory t12 = drive.trajectoryBuilder(tsl.end())
-                .lineToLinearHeading(new Pose2d(-12,55, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(-16,49, Math.toRadians(90)))
                 .build();
         Trajectory t13 = drive.trajectoryBuilder(t12.end())
-                .strafeTo(new Vector2d(-36,55))
+                .strafeTo(new Vector2d(-42,49))
                 .build();
         Trajectory t14 = drive.trajectoryBuilder(t13.end())
-                .strafeTo(new Vector2d(-12,55))
+                .strafeTo(new Vector2d(-16,49))
                 .build();
         // Zone 3 actions
-        Trajectory t5 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(-32.5,-32.5), Math.toRadians(-90)) //may need to change to linearheading
+        Trajectory tsb = drive.trajectoryBuilder(startPose)
+                .strafeTo(new Vector2d(-63.25,-37))
+                .build();
+        Trajectory t5 = drive.trajectoryBuilder(tsb.end())
+                .lineToLinearHeading(new Pose2d(-32.5,-35, Math.toRadians(-90))) //may need to change to linearheading
                 .build();
         Trajectory t6 = drive.trajectoryBuilder(t5.end())
-                .strafeTo(new Vector2d(-12,-32.5))
+                .strafeTo(new Vector2d(-12,-34))
                 .build();
-        Trajectory t7 = drive.trajectoryBuilder(t6.end())
-                .lineToLinearHeading(new Pose2d(-12,55, Math.toRadians(90)))
+        Trajectory tlb = drive.trajectoryBuilder(t6.end())
+                .lineToConstantHeading(new Vector2d(-12,0))
+                .build();
+        Trajectory t7 = drive.trajectoryBuilder(tlb.end())
+                .lineToLinearHeading(new Pose2d(-16,48, Math.toRadians(90)))
                 .build();
         Trajectory t8 = drive.trajectoryBuilder(t7.end())
-                .strafeTo(new Vector2d(-30,55))
+                .strafeTo(new Vector2d(-42,48))
                 .build();
         Trajectory t9 = drive.trajectoryBuilder(t8.end())
-                .strafeTo(new Vector2d(-12,55))
+                .strafeTo(new Vector2d(-16,48))
                 .build();
         waitForStart();
 

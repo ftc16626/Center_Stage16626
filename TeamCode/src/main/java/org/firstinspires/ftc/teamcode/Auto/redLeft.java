@@ -164,29 +164,29 @@ public class redLeft extends LinearOpMode {
                 .strafeTo(new Vector2d(10,-50))
                 .build();
         Trajectory t12 = drive.trajectoryBuilder(tsl.end())
-                .lineToLinearHeading(new Pose2d(10,50, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(10,47, Math.toRadians(90)))
                 .build();
         Trajectory t13 = drive.trajectoryBuilder(t12.end())
-                .strafeTo(new Vector2d(38,50))
+                .strafeTo(new Vector2d(38,47))
                 .build();
         Trajectory t14 = drive.trajectoryBuilder(t13.end())
-                .strafeTo(new Vector2d(10,50))
+                .strafeTo(new Vector2d(10,47))
                 .build();
         // Zone 3 actions
         Trajectory t5 = drive.trajectoryBuilder(startPose)
-                .splineTo(new Vector2d(32.5,-36), Math.toRadians(90)) //may need to change to linearheading
+                .splineTo(new Vector2d(32.5,-35), Math.toRadians(90)) //may need to change to linearheading
                 .build();
         Trajectory t6 = drive.trajectoryBuilder(t5.end())
                 .strafeTo(new Vector2d(10,-36))
                 .build();
         Trajectory t7 = drive.trajectoryBuilder(t6.end())
-                .lineToLinearHeading(new Pose2d(10,50, Math.toRadians(90)))
+                .lineToLinearHeading(new Pose2d(10,47, Math.toRadians(90)))
                 .build();
         Trajectory t8 = drive.trajectoryBuilder(t7.end())
-                .strafeTo(new Vector2d(44,50))
+                .strafeTo(new Vector2d(44,47))
                 .build();
         Trajectory t9 = drive.trajectoryBuilder(t8.end())
-                .strafeTo(new Vector2d( 10,50))
+                .strafeTo(new Vector2d( 10,47))
                 .build();
         waitForStart();
 
