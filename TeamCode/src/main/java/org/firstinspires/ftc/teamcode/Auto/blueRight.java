@@ -33,14 +33,15 @@ THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package org.firstinspires.ftc.teamcode.Auto;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
 import com.acmerobotics.roadrunner.trajectory.Trajectory;
 import com.qualcomm.hardware.dfrobot.HuskyLens;
 import com.qualcomm.hardware.dfrobot.HuskyLens.Block;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.internal.system.Deadline;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
@@ -67,12 +68,11 @@ import java.util.concurrent.TimeUnit;
 public class blueRight extends LinearOpMode {
 
     public Servo Stick;
-    private final int READ_PERIOD = 1;
-    //Claw part of arm
     public Servo ClawR; //Rotates Claw
-
-    //Arm Motors
-    public DcMotor armMotor;
+    public CRServo ClawP;
+    public CRServo ClawW;
+    public DcMotor RAMotor;
+    private final int READ_PERIOD = 1;
     private HuskyLens huskyLens;
 
     @Override
@@ -82,10 +82,11 @@ public class blueRight extends LinearOpMode {
         Stick = hardwareMap.servo.get("Stick");
         ClawR = hardwareMap.servo.get("ClawR"); //For rotation
         ClawR.setPosition(1);
+        ClawP = hardwareMap.crservo.get("ClawP");//For wheels pixel
+        ClawW = hardwareMap.crservo.get("ClawW");//For wheels pixel
 
-
-        //Arm
-        DcMotor armMotor = hardwareMap.dcMotor.get("RAMotor");
+        DcMotor RAMotor = hardwareMap.dcMotor.get("RAMotor");
+        RAMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         /*
          * This sample rate limits the reads solely to allow a user time to observe
          * what is happening on the Driver Station telemetry.  Typical applications
@@ -239,14 +240,19 @@ public class blueRight extends LinearOpMode {
             drive.setPoseEstimate(startPose);
 
             if (zone == 1) {
-
+                Stick.setPosition(0);
+                sleep(100);
                 drive.followTrajectory(t0);
-                //stick to release pixel on spike
+                Stick.setPosition(.8);
                 drive.followTrajectory(t1);
                 drive.followTrajectory(t2);
                 //lift arm up for placement
                 drive.followTrajectory(t3);
-                //place pixel
+                ClawP.setPower(-1);
+                ClawW.setPower(-1);
+                sleep(1000);
+                ClawP.setPower(0);
+                ClawW.setPower(0);
                 drive.followTrajectory(t4);
                 //return arm position
                 sleep(1000000000);
@@ -254,14 +260,20 @@ public class blueRight extends LinearOpMode {
             }
 
             if (zone == 2) {
+                Stick.setPosition(0);
+                sleep(100);
                 drive.followTrajectory(t10);
-                //stick to release pixel on spike
+                Stick.setPosition(.8);
                 drive.followTrajectory(t11);
                 drive.followTrajectory(tsl);
                 drive.followTrajectory(t12);
                 //lift arm up for placement
                 drive.followTrajectory(t13);
-                //place pixel
+                ClawP.setPower(-1);
+                ClawW.setPower(-1);
+                sleep(1000);
+                ClawP.setPower(0);
+                ClawW.setPower(0);
                 drive.followTrajectory(t14);
                 //return arm position
                 sleep(1000000000);
@@ -269,13 +281,19 @@ public class blueRight extends LinearOpMode {
 
             }
             if (zone == 3) {
+                Stick.setPosition(0);
+                sleep(100);
                 drive.followTrajectory(t5);
-                //stick to release pixel on spike
+                Stick.setPosition(.8);
                 drive.followTrajectory(t6);
                 drive.followTrajectory(t7);
                 //lift arm up for placement
                 drive.followTrajectory(t8);
-                //place pixel
+                ClawP.setPower(-1);
+                ClawW.setPower(-1);
+                sleep(1000);
+                ClawP.setPower(0);
+                ClawW.setPower(0);
                 drive.followTrajectory(t9);
                 //return arm position
                 sleep(1000000000);
