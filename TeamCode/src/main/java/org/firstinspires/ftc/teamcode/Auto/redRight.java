@@ -234,7 +234,11 @@ public class redRight extends LinearOpMode {
                 drive.followTrajectory(t0);
                 Stick.setPosition(.8);
                 drive.followTrajectory(t1);
-                //lift arm up for placement
+                RAMotor.setPower(1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(.5167); //Claw Rotation
+                sleep(1000);//lift arm up for placement
                 drive.followTrajectory(t2);
                 ClawP.setPower(-1);
                 ClawW.setPower(-1);
@@ -242,7 +246,10 @@ public class redRight extends LinearOpMode {
                 ClawP.setPower(0);
                 ClawW.setPower(0);
                 drive.followTrajectory(t3);
-                //return arm position
+                RAMotor.setPower(-1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(1);
                 sleep(1000000000);
 
             }
@@ -253,14 +260,21 @@ public class redRight extends LinearOpMode {
                 drive.followTrajectory(t10);
                 Stick.setPosition(.8);
                 drive.followTrajectory(t11);
-                //lift arm up for placement
+                RAMotor.setPower(1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(.5167); //Claw Rotation
+                sleep(1000);
                 ClawP.setPower(-1);
                 ClawW.setPower(-1);
-                sleep(1000);
+                sleep(2000);
                 ClawP.setPower(0);
                 ClawW.setPower(0);
+                RAMotor.setPower(-1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(1);
                 drive.followTrajectory(t12);
-                //return arm position
                 sleep(1000000000);
 
 
@@ -272,7 +286,11 @@ public class redRight extends LinearOpMode {
                 Stick.setPosition(.8);
                 drive.followTrajectory(t5);
                 drive.followTrajectory(t6);
-                //lift arm up for placement
+                RAMotor.setPower(1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(.5167); //Claw Rotation
+                sleep(1000);//lift arm up for placement
                 drive.followTrajectory(t7);
                 ClawP.setPower(-1);
                 ClawW.setPower(-1);
@@ -280,7 +298,10 @@ public class redRight extends LinearOpMode {
                 ClawP.setPower(0);
                 ClawW.setPower(0);
                 drive.followTrajectory(t8 );
-                //return arm position
+                RAMotor.setPower(-1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(1); //return arm position
                 sleep(1000000000);
             }
 

@@ -246,7 +246,11 @@ public class blueRight extends LinearOpMode {
                 Stick.setPosition(.8);
                 drive.followTrajectory(t1);
                 drive.followTrajectory(t2);
-                //lift arm up for placement
+                RAMotor.setPower(1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(.5167); //Claw Rotation
+                sleep(1000);//lift arm up for placement
                 drive.followTrajectory(t3);
                 ClawP.setPower(-1);
                 ClawW.setPower(-1);
@@ -254,7 +258,10 @@ public class blueRight extends LinearOpMode {
                 ClawP.setPower(0);
                 ClawW.setPower(0);
                 drive.followTrajectory(t4);
-                //return arm position
+                RAMotor.setPower(-1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(1);  //return arm position
                 sleep(1000000000);
 
             }
@@ -267,7 +274,11 @@ public class blueRight extends LinearOpMode {
                 drive.followTrajectory(t11);
                 drive.followTrajectory(tsl);
                 drive.followTrajectory(t12);
-                //lift arm up for placement
+                RAMotor.setPower(1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(.5167); //Claw Rotation
+                sleep(1000);//lift arm up for placement
                 drive.followTrajectory(t13);
                 ClawP.setPower(-1);
                 ClawW.setPower(-1);
@@ -275,7 +286,10 @@ public class blueRight extends LinearOpMode {
                 ClawP.setPower(0);
                 ClawW.setPower(0);
                 drive.followTrajectory(t14);
-                //return arm position
+                RAMotor.setPower(-1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(1);  //return arm position
                 sleep(1000000000);
 
 
@@ -287,7 +301,11 @@ public class blueRight extends LinearOpMode {
                 Stick.setPosition(.8);
                 drive.followTrajectory(t6);
                 drive.followTrajectory(t7);
-                //lift arm up for placement
+                RAMotor.setPower(1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(.5167); //Claw Rotation
+                sleep(1000);//lift arm up for placement
                 drive.followTrajectory(t8);
                 ClawP.setPower(-1);
                 ClawW.setPower(-1);
@@ -295,7 +313,10 @@ public class blueRight extends LinearOpMode {
                 ClawP.setPower(0);
                 ClawW.setPower(0);
                 drive.followTrajectory(t9);
-                //return arm position
+                RAMotor.setPower(-1);
+                sleep(950);
+                RAMotor.setPower(0);
+                ClawR.setPosition(1);  //return arm position
                 sleep(1000000000);
             }
 
