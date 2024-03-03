@@ -225,7 +225,7 @@ public class blueLeft extends LinearOpMode {
             */
 
             drive.setPoseEstimate(startPose);
-
+            sleep(2000);
             if (zone == 1) {
                 Stick.setPosition(0);
                 sleep(100);

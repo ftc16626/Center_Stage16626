@@ -255,6 +255,7 @@ public class redLeft extends LinearOpMode {
                 sleep(2000);
                 ClawP.setPower(0);
                 ClawW.setPower(0);//place pixel
+                sleep(1000);
                 drive.followTrajectory(t4);
                 //return arm position
                 RAMotor.setPower(-1);
@@ -286,6 +287,7 @@ public class redLeft extends LinearOpMode {
                 sleep(2000);
                 ClawP.setPower(0);
                 ClawW.setPower(0);//place pixel
+                sleep(1000);
                 drive.followTrajectory(t14);
                 RAMotor.setPower(-1);
                 sleep(950);
@@ -315,6 +317,7 @@ public class redLeft extends LinearOpMode {
                 sleep(1000);
                 ClawP.setPower(0);
                 ClawW.setPower(0);//place pixel
+                sleep(1000);
                 drive.followTrajectory(t9);
                 RAMotor.setPower(-1);
                 sleep(950);
