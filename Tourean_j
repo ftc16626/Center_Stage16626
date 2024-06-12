@@ -1,0 +1,52 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.qualcomm.robotcore.eventloop.opmode.Teleop;
+import com.quallcomm.robotcore.eventloop.opmode.Opmode;
+import com.quallcomm.robotcore.hardware.ColorRangeSensor;
+import com.quallcomm.robotcore.hardware.ColorSensor;
+import com.quallcomm.robotcore.hardware.DcMotorSimple;
+import com.quallcomm.robotcore.hardware.DcMotor;
+import com.quallcomm.robotcore.hardware.Servo;
+import com.quallcomm.robotcore.hardware.DistanceSensor;
+
+
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
+
+@TeleOp
+
+public class Motor_arm extends Opmode {
+DistanceSensor dsensor; 
+
+  
+    @Override
+    public void init()
+    {
+        dsensor = hardwaremap.get(DistanceSensor.class, deviceName "distance sensor")
+    }
+     public void distance() 
+    {
+        double value = dsensor.getDistance(DistanceUnit.INCH);
+        telemetry.addData( caption"Distance: ", value);
+    {
+
+    }
+
+
+  }
+    
+     
+     @Override
+    public void loop()  
+    {
+
+    }
+    @Override
+    public void stop() {
+    }
+
+}
+ 
+
+
+
